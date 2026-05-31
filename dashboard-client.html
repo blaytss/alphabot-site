@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Dashboard — AlphaBot</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080a0e;--bg2:#0d1117;--bg3:#131920;--bg4:#1a2130;
+  --border:rgba(0,255,136,.12);--accent:#00ff88;--accent2:#00c96e;
+  --gold:#f5c542;--text:#e8edf2;--muted:#4a5568;--muted2:#718096;
+  --red:#ff3355;--blue:#0088ff;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;
+  min-height:100vh;display:flex;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,255,136,.02) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,136,.02) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0;}
+
+/* SIDEBAR */
+.sidebar{width:240px;min-height:100vh;background:var(--bg2);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;z-index:50;transition:.3s;}
+.sidebar-logo{padding:24px 20px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;text-decoration:none;}
+.logo-icon{width:34px;height:34px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;font-size:16px;}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;
+  letter-spacing:2px;color:var(--accent);}
+
+/* PLAN BADGE SIDEBAR */
+.sidebar-plan{padding:12px 20px;border-bottom:1px solid var(--border);}
+.plan-pill{display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:99px;font-size:12px;font-weight:600;
+  font-family:'DM Mono',monospace;}
+.plan-starter{background:rgba(255,255,255,.06);color:var(--muted2);border:1px solid var(--border);}
+.plan-basic{background:rgba(0,136,255,.1);color:var(--blue);border:1px solid rgba(0,136,255,.2);}
+.plan-pro{background:rgba(0,255,136,.1);color:var(--accent);border:1px solid rgba(0,255,136,.2);}
+.plan-elite{background:rgba(245,197,66,.1);color:var(--gold);border:1px solid rgba(245,197,66,.2);}
+.upgrade-btn{display:block;margin-top:8px;font-size:11px;color:var(--accent);
+  text-decoration:none;font-family:'DM Mono',monospace;}
+.upgrade-btn:hover{text-decoration:underline;}
+
+/* NAV */
+.sidebar-nav{flex:1;padding:16px 0;overflow-y:auto;}
+.nav-section{padding:6px 20px;font-size:10px;color:var(--muted);
+  text-transform:uppercase;letter-spacing:1.5px;
+  font-family:'DM Mono',monospace;margin-top:12px;}
+.nav-item{display:flex;align-items:center;gap:12px;padding:10px 20px;
+  cursor:pointer;transition:.2s;font-size:14px;color:var(--muted2);
+  text-decoration:none;position:relative;}
+.nav-item:hover{color:var(--text);background:rgba(255,255,255,.03);}
+.nav-item.active{color:var(--accent);background:rgba(0,255,136,.05);}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;
+  width:2px;background:var(--accent);border-radius:0 2px 2px 0;}
+.nav-icon{font-size:16px;width:20px;text-align:center;}
+.nav-lock{font-size:11px;color:var(--muted);margin-left:auto;}
+
+.sidebar-footer{padding:16px 20px;border-top:1px solid var(--border);}
+.user-row{display:flex;align-items:center;gap:10px;}
+.user-avatar{width:32px;height:32px;border-radius:50%;
+  background:rgba(0,255,136,.15);display:flex;align-items:center;
+  justify-content:center;font-size:14px;font-weight:700;color:var(--accent);}
+.user-name{font-size:13px;font-weight:500;}
+.user-email{font-size:11px;color:var(--muted2);}
+.logout-btn{margin-left:auto;font-size:18px;cursor:pointer;color:var(--muted2);
+  background:none;border:none;transition:.2s;}
+.logout-btn:hover{color:var(--red);}
+
+/* MAIN */
+.main{margin-left:240px;flex:1;min-height:100vh;position:relative;z-index:1;}
+
+/* TOPBAR */
+.topbar{padding:16px 32px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(8,10,14,.8);backdrop-filter:blur(20px);
+  position:sticky;top:0;z-index:40;}
+.topbar-title{font-family:'Bebas Neue',sans-serif;font-size:22px;
+  letter-spacing:2px;}
+.topbar-right{display:flex;align-items:center;gap:16px;}
+.notif-btn{width:36px;height:36px;border-radius:8px;background:var(--bg3);
+  border:1px solid var(--border);display:flex;align-items:center;
+  justify-content:center;cursor:pointer;font-size:16px;position:relative;}
+.notif-dot{position:absolute;top:6px;right:6px;width:7px;height:7px;
+  border-radius:50%;background:var(--red);border:1px solid var(--bg);}
+.upgrade-topbar{background:rgba(0,255,136,.1);color:var(--accent);
+  border:1px solid rgba(0,255,136,.2);padding:7px 16px;border-radius:8px;
+  font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;
+  text-decoration:none;transition:.2s;}
+.upgrade-topbar:hover{background:rgba(0,255,136,.2);}
+
+/* CONTENT */
+.content{padding:32px;}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid var(--border);}
+.tab{padding:10px 20px;cursor:pointer;font-size:13px;font-weight:600;
+  color:var(--muted2);transition:.2s;border-bottom:2px solid transparent;
+  margin-bottom:-1px;}
+.tab:hover{color:var(--text);}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* LOCK OVERLAY */
+.locked{position:relative;overflow:hidden;border-radius:16px;}
+.lock-overlay{position:absolute;inset:0;z-index:10;
+  background:rgba(8,10,14,.85);backdrop-filter:blur(4px);
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;border-radius:16px;
+  border:1px solid var(--border);}
+.lock-icon{font-size:40px;margin-bottom:16px;}
+.lock-title{font-family:'Bebas Neue',sans-serif;font-size:24px;
+  letter-spacing:2px;margin-bottom:8px;}
+.lock-sub{font-size:14px;color:var(--muted2);margin-bottom:20px;
+  max-width:260px;line-height:1.6;}
+.lock-plans{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;justify-content:center;}
+.lock-plan-badge{padding:4px 12px;border-radius:99px;font-size:11px;
+  font-weight:700;font-family:'DM Mono',monospace;}
+.lock-btn{background:var(--accent);color:#000;padding:10px 24px;
+  border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;
+  border:none;font-family:'DM Sans',sans-serif;text-decoration:none;
+  display:inline-block;transition:.2s;}
+.lock-btn:hover{background:var(--accent2);}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.kpi-card{background:var(--bg2);border:1px solid var(--border);
+  border-radius:14px;padding:20px;position:relative;overflow:hidden;}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--accent),transparent);}
+.kpi-card.blue::after{background:linear-gradient(90deg,var(--blue),transparent);}
+.kpi-card.gold::after{background:linear-gradient(90deg,var(--gold),transparent);}
+.kpi-card.red::after{background:linear-gradient(90deg,var(--red),transparent);}
+.kpi-label{font-size:11px;color:var(--muted2);text-transform:uppercase;
+  letter-spacing:1px;font-family:'DM Mono',monospace;margin-bottom:8px;}
+.kpi-val{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px;line-height:1;}
+.kpi-sub{font-size:11px;color:var(--muted2);margin-top:4px;}
+.up{color:var(--accent);}
+.down{color:var(--red);}
+
+/* RAPPORT CARD */
+.rapport-card{background:var(--bg2);border:1px solid var(--border);
+  border-radius:16px;padding:24px;margin-bottom:20px;}
+.rapport-header{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:20px;}
+.rapport-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;}
+.rapport-date{font-size:12px;color:var(--muted2);font-family:'DM Mono',monospace;}
+.rapport-badge{padding:4px 12px;border-radius:99px;font-size:11px;font-weight:700;
+  font-family:'DM Mono',monospace;}
+.badge-new{background:rgba(0,255,136,.1);color:var(--accent);}
+
+/* OPPORTUNITY CARDS */
+.opp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.opp-card{background:var(--bg3);border-radius:12px;padding:16px;
+  border:1px solid var(--border);transition:.2s;}
+.opp-card:hover{border-color:rgba(0,255,136,.25);}
+.opp-rank{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.opp-num{width:24px;height:24px;border-radius:6px;display:flex;
+  align-items:center;justify-content:center;font-size:12px;font-weight:700;
+  font-family:'DM Mono',monospace;}
+.num-1{background:rgba(245,197,66,.15);color:var(--gold);}
+.num-2{background:rgba(0,255,136,.1);color:var(--accent);}
+.num-3{background:rgba(0,136,255,.1);color:var(--blue);}
+.opp-sym{font-size:15px;font-weight:700;}
+.opp-score{margin-left:auto;font-family:'DM Mono',monospace;font-size:13px;}
+.opp-verdict{font-size:11px;color:var(--muted2);margin-bottom:8px;}
+.opp-stats{display:flex;gap:12px;}
+.opp-stat{font-size:11px;font-family:'DM Mono',monospace;color:var(--muted2);}
+.opp-stat span{color:var(--text);}
+
+/* AVOID CARDS */
+.avoid-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+.avoid-card{background:rgba(255,51,85,.04);border:1px solid rgba(255,51,85,.12);
+  border-radius:12px;padding:14px;}
+.avoid-sym{font-size:14px;font-weight:700;margin-bottom:4px;}
+.avoid-reason{font-size:11px;color:var(--muted2);line-height:1.5;}
+
+/* ACTIFS TABLE */
+.actifs-table{width:100%;border-collapse:collapse;}
+.actifs-table th{text-align:left;padding:10px 14px;font-size:11px;
+  color:var(--muted2);font-family:'DM Mono',monospace;text-transform:uppercase;
+  letter-spacing:.5px;border-bottom:1px solid var(--border);}
+.actifs-table td{padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:13px;}
+.actifs-table tr:hover td{background:rgba(255,255,255,.02);}
+.actif-sym{font-weight:700;}
+.actif-fibo{display:flex;gap:4px;flex-wrap:wrap;}
+.fibo-pill{padding:2px 6px;border-radius:4px;font-size:10px;
+  font-family:'DM Mono',monospace;}
+
+/* FF EVENTS */
+.ff-grid{display:flex;flex-direction:column;gap:0;}
+.ff-row{display:flex;align-items:center;gap:12px;padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;}
+.ff-time{font-family:'DM Mono',monospace;font-size:11px;
+  color:var(--muted2);min-width:55px;}
+.ff-currency{font-weight:700;min-width:40px;}
+.ff-name{flex:1;}
+.ff-impact{font-size:10px;padding:2px 8px;border-radius:99px;
+  font-family:'DM Mono',monospace;}
+.impact-high{background:rgba(255,51,85,.1);color:var(--red);}
+.impact-medium{background:rgba(245,197,66,.1);color:var(--gold);}
+
+/* UPGRADE MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);
+  z-index:200;display:none;align-items:center;justify-content:center;}
+.modal-overlay.show{display:flex;}
+.modal{background:var(--bg2);border:1px solid var(--border);
+  border-radius:24px;padding:40px;max-width:480px;width:90%;
+  position:relative;}
+.modal-close{position:absolute;top:16px;right:16px;
+  background:none;border:none;color:var(--muted2);font-size:20px;cursor:pointer;}
+.modal h2{font-family:'Bebas Neue',sans-serif;font-size:32px;
+  letter-spacing:2px;margin-bottom:8px;}
+.modal p{font-size:14px;color:var(--muted2);line-height:1.7;margin-bottom:24px;}
+.modal-plans{display:flex;flex-direction:column;gap:10px;}
+.modal-plan{background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:space-between;
+  text-decoration:none;color:var(--text);}
+.modal-plan:hover{border-color:var(--accent);}
+.modal-plan.recommended{border-color:var(--accent);
+  background:rgba(0,255,136,.04);}
+
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%);}
+  .main{margin-left:0;}
+  .cards-grid{grid-template-columns:repeat(2,1fr);}
+  .opp-grid,.avoid-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <a href="index.html" class="sidebar-logo">
+    <div class="logo-icon">📈</div>
+    <span class="logo-text">AlphaBot</span>
+  </a>
+
+  <div class="sidebar-plan">
+    <div class="plan-pill" id="plan-pill">⭐ Pro</div>
+    <a href="tarifs.html" class="upgrade-btn" id="upgrade-link" style="display:none">
+      ↑ Passer à Elite →
+    </a>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-section">Principal</div>
+    <a class="nav-item active" onclick="showTab('rapport')">
+      <span class="nav-icon">📊</span> Rapport week-end
+    </a>
+    <a class="nav-item" onclick="showTab('bot')" id="nav-bot">
+      <span class="nav-icon">🤖</span> Bot en direct
+      <span class="nav-lock" id="lock-bot"></span>
+    </a>
+    <a class="nav-item" onclick="showTab('actifs')" id="nav-actifs">
+      <span class="nav-icon">📈</span> Mes actifs
+      <span class="nav-lock" id="lock-actifs"></span>
+    </a>
+    <a class="nav-item" onclick="showTab('fibonacci')" id="nav-fibo">
+      <span class="nav-icon">📐</span> Fibonacci live
+      <span class="nav-lock" id="lock-fibo"></span>
+    </a>
+
+    <div class="nav-section">Analyse</div>
+    <a class="nav-item" onclick="showTab('forex')">
+      <span class="nav-icon">📅</span> Forex Factory
+    </a>
+    <a class="nav-item" onclick="showTab('decisions')" id="nav-decisions">
+      <span class="nav-icon">🎯</span> Décisions bot
+      <span class="nav-lock" id="lock-decisions"></span>
+    </a>
+
+    <div class="nav-section">Compte</div>
+    <a class="nav-item" href="tarifs.html">
+      <span class="nav-icon">💎</span> Abonnement
+    </a>
+    <a class="nav-item" onclick="showTab('settings')">
+      <span class="nav-icon">⚙️</span> Paramètres
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="user-avatar" id="user-avatar">S</div>
+      <div>
+        <div class="user-name" id="user-name">Sacha</div>
+        <div class="user-email" id="user-email">pro@demo.com</div>
+      </div>
+      <button class="logout-btn" onclick="logout()" title="Déconnexion">⏻</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title" id="page-title">RAPPORT WEEK-END</div>
+    <div class="topbar-right">
+      <div class="notif-btn">🔔<div class="notif-dot"></div></div>
+      <a href="tarifs.html" class="upgrade-topbar" id="upgrade-topbar" style="display:none">
+        ↑ Upgrader →
+      </a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ═══ RAPPORT WEEK-END ═══ -->
+    <div class="tab-content active" id="tab-rapport">
+      <div class="cards-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Actifs analysés</div>
+          <div class="kpi-val">28</div>
+          <div class="kpi-sub">Ce week-end</div>
+        </div>
+        <div class="kpi-card blue">
+          <div class="kpi-label">Opportunités</div>
+          <div class="kpi-val up" id="nb-opps">5</div>
+          <div class="kpi-sub">Score ≥ 3</div>
+        </div>
+        <div class="kpi-card red">
+          <div class="kpi-label">À éviter</div>
+          <div class="kpi-val down" id="nb-avoid">3</div>
+          <div class="kpi-sub">Score ≤ -2</div>
+        </div>
+        <div class="kpi-card gold">
+          <div class="kpi-label">Risque macro</div>
+          <div class="kpi-val" style="color:var(--gold);font-size:24px">MOYEN</div>
+          <div class="kpi-sub">3 events HIGH</div>
+        </div>
+      </div>
+
+      <!-- TOP OPPORTUNITÉS -->
+      <div class="rapport-card">
+        <div class="rapport-header">
+          <div>
+            <div class="rapport-title">🏆 TOP OPPORTUNITÉS SEMAINE</div>
+            <div class="rapport-date">Semaine du 2 juin 2026</div>
+          </div>
+          <span class="rapport-badge badge-new">NOUVEAU</span>
+        </div>
+        <div class="opp-grid" id="opp-grid">
+          <div class="opp-card">
+            <div class="opp-rank">
+              <div class="opp-num num-1">1</div>
+              <span class="opp-sym">AMZN</span>
+              <span class="opp-score up">+7</span>
+            </div>
+            <div class="opp-verdict">🟢 Fort potentiel haussier</div>
+            <div class="opp-stats">
+              <div class="opp-stat">RSI <span>42</span></div>
+              <div class="opp-stat">Sem. <span class="up">+2.1%</span></div>
+            </div>
+          </div>
+          <div class="opp-card">
+            <div class="opp-rank">
+              <div class="opp-num num-2">2</div>
+              <span class="opp-sym">JPM</span>
+              <span class="opp-score up">+6</span>
+            </div>
+            <div class="opp-verdict">✅ Setup intéressant</div>
+            <div class="opp-stats">
+              <div class="opp-stat">RSI <span>38</span></div>
+              <div class="opp-stat">Sem. <span class="up">+1.4%</span></div>
+            </div>
+          </div>
+          <div class="opp-card" id="opp-3">
+            <div class="opp-rank">
+              <div class="opp-num num-3">3</div>
+              <span class="opp-sym">OR.PA</span>
+              <span class="opp-score up">+5</span>
+            </div>
+            <div class="opp-verdict">✅ Support Fibonacci 61.8%</div>
+            <div class="opp-stats">
+              <div class="opp-stat">RSI <span>45</span></div>
+              <div class="opp-stat">Sem. <span class="up">+0.8%</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TOP 4 & 5 — bloqué Basic -->
+        <div class="locked" id="opp-locked" style="height:100px;">
+          <div style="height:100px;background:var(--bg3);border-radius:12px;opacity:.3"></div>
+          <div class="lock-overlay">
+            <div class="lock-icon">🔒</div>
+            <div class="lock-title">TOP 4 & 5</div>
+            <div class="lock-sub">Disponible dès le plan Pro</div>
+            <div class="lock-plans">
+              <span class="lock-plan-badge plan-pro">Pro — 49€/mois</span>
+              <span class="lock-plan-badge plan-elite">Elite — 99€/mois</span>
+            </div>
+            <a href="tarifs.html" class="lock-btn">Upgrader →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- À ÉVITER -->
+      <div class="rapport-card">
+        <div class="rapport-header">
+          <div class="rapport-title">⚠️ À ÉVITER CETTE SEMAINE</div>
+        </div>
+        <div class="avoid-grid" id="avoid-grid">
+          <div class="avoid-card">
+            <div class="avoid-sym down">❌ BTC-USD</div>
+            <div class="avoid-reason">Prix sous EMA200 · Résistance Fibo 38.2% · Volume faible</div>
+          </div>
+          <div class="avoid-card">
+            <div class="avoid-sym down">❌ TSLA</div>
+            <div class="avoid-reason">Tendance baissière forte · MACD négatif · Score -5</div>
+          </div>
+          <div class="avoid-card" id="avoid-3">
+            <div class="avoid-sym down">❌ KER.PA</div>
+            <div class="avoid-reason">Breakout baissier confirmé · Volume 1.8x moyen</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ BOT EN DIRECT ═══ -->
+    <div class="tab-content" id="tab-bot">
+      <div class="locked" id="bot-locked" style="min-height:400px;">
+        <div style="min-height:400px;background:var(--bg2);border-radius:16px;border:1px solid var(--border);opacity:.2;padding:24px">
+          <div style="height:20px;background:var(--bg3);border-radius:4px;width:200px;margin-bottom:16px"></div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+            <div style="height:80px;background:var(--bg3);border-radius:8px"></div>
+            <div style="height:80px;background:var(--bg3);border-radius:8px"></div>
+            <div style="height:80px;background:var(--bg3);border-radius:8px"></div>
+            <div style="height:80px;background:var(--bg3);border-radius:8px"></div>
+          </div>
+        </div>
+        <div class="lock-overlay" id="bot-lock-overlay">
+          <div class="lock-icon">🤖</div>
+          <div class="lock-title">BOT EN DIRECT</div>
+          <div class="lock-sub">Accède au bot actif 24h/24 avec les plans Basic, Pro et Elite</div>
+          <div class="lock-plans">
+            <span class="lock-plan-badge plan-basic">Basic — 24€/mois</span>
+            <span class="lock-plan-badge plan-pro">Pro — 49€/mois</span>
+            <span class="lock-plan-badge plan-elite">Elite — 99€/mois</span>
+          </div>
+          <a href="tarifs.html" class="lock-btn">Upgrader →</a>
+        </div>
+      </div>
+
+      <!-- Contenu bot (visible si Basic+) -->
+      <div id="bot-content" style="display:none;">
+        <div class="cards-grid">
+          <div class="kpi-card"><div class="kpi-label">Capital total</div><div class="kpi-val up">1 043€</div><div class="kpi-sub">+4.3% depuis le début</div></div>
+          <div class="kpi-card blue"><div class="kpi-label">Capital dispo</div><div class="kpi-val">893€</div><div class="kpi-sub">Libre à investir</div></div>
+          <div class="kpi-card"><div class="kpi-label">Positions ouvertes</div><div class="kpi-val">3</div><div class="kpi-sub">Trades actifs</div></div>
+          <div class="kpi-card gold"><div class="kpi-label">Win Rate</div><div class="kpi-val" style="color:var(--gold)">62%</div><div class="kpi-sub">16 trades fermés</div></div>
+        </div>
+        <div class="rapport-card">
+          <div class="rapport-title" style="margin-bottom:16px">📌 Positions ouvertes</div>
+          <table class="actifs-table">
+            <thead><tr><th>Ticker</th><th>Type</th><th>Entrée</th><th>Actuel</th><th>Gain</th><th>SL</th></tr></thead>
+            <tbody>
+              <tr><td class="actif-sym">AMZN</td><td><span style="color:var(--accent)">▲ LONG</span></td><td>264.27€</td><td>269.95€</td><td class="up">+0.49€</td><td style="color:var(--red)">261.00€</td></tr>
+              <tr><td class="actif-sym">JPM</td><td><span style="color:var(--accent)">▲ LONG</span></td><td>198.50€</td><td>201.20€</td><td class="up">+0.32€</td><td style="color:var(--red)">196.10€</td></tr>
+              <tr><td class="actif-sym">EURUSD=X</td><td><span style="color:var(--red)">▼ SHORT</span></td><td>1.0821</td><td>1.0804</td><td class="up">+0.21€</td><td style="color:var(--red)">1.0850</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ MES ACTIFS ═══ -->
+    <div class="tab-content" id="tab-actifs">
+      <div class="locked" id="actifs-locked" style="min-height:300px;">
+        <div style="min-height:300px;background:var(--bg2);border-radius:16px;border:1px solid var(--border);opacity:.2;padding:24px">
+          <div style="height:16px;background:var(--bg3);border-radius:4px;width:150px;margin-bottom:16px"></div>
+          <div style="height:200px;background:var(--bg3);border-radius:8px"></div>
+        </div>
+        <div class="lock-overlay" id="actifs-lock-overlay">
+          <div class="lock-icon">📈</div>
+          <div class="lock-title">MES ACTIFS</div>
+          <div class="lock-sub">Configure tes actifs surveillés avec Basic (2), Pro (5) ou Elite (20)</div>
+          <div class="lock-plans">
+            <span class="lock-plan-badge plan-basic">Basic — 2 actifs</span>
+            <span class="lock-plan-badge plan-pro">Pro — 5 actifs</span>
+            <span class="lock-plan-badge plan-elite">Elite — 20 actifs</span>
+          </div>
+          <a href="tarifs.html" class="lock-btn">Upgrader →</a>
+        </div>
+      </div>
+
+      <div id="actifs-content" style="display:none;">
+        <div class="rapport-card">
+          <div class="rapport-header">
+            <div class="rapport-title">📈 MES ACTIFS SURVEILLÉS</div>
+            <button style="background:var(--accent);color:#000;border:none;padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;" onclick="alert('Modifier les actifs — à connecter au backend')">Modifier →</button>
+          </div>
+          <table class="actifs-table">
+            <thead><tr><th>Ticker</th><th>Secteur</th><th>Prix actuel</th><th>Variation sem.</th><th>RSI</th><th>Fibo</th><th>Signal</th></tr></thead>
+            <tbody id="actifs-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ FIBONACCI LIVE ═══ -->
+    <div class="tab-content" id="tab-fibonacci">
+      <div class="locked" id="fibo-locked" style="min-height:300px;">
+        <div style="min-height:300px;background:var(--bg2);border-radius:16px;border:1px solid var(--border);opacity:.2;padding:24px">
+          <div style="height:200px;background:var(--bg3);border-radius:8px"></div>
+        </div>
+        <div class="lock-overlay">
+          <div class="lock-icon">📐</div>
+          <div class="lock-title">FIBONACCI LIVE</div>
+          <div class="lock-sub">Niveaux Fibonacci en temps réel disponibles dès le plan Pro</div>
+          <div class="lock-plans">
+            <span class="lock-plan-badge plan-pro">Pro — 49€/mois</span>
+            <span class="lock-plan-badge plan-elite">Elite — 99€/mois</span>
+          </div>
+          <a href="tarifs.html" class="lock-btn">Upgrader →</a>
+        </div>
+      </div>
+      <div id="fibo-content" style="display:none;">
+        <div class="rapport-card">
+          <div class="rapport-title" style="margin-bottom:16px">📐 Niveaux Fibonacci en direct</div>
+          <div id="fibo-cards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ FOREX FACTORY ═══ -->
+    <div class="tab-content" id="tab-forex">
+      <div class="rapport-card">
+        <div class="rapport-header">
+          <div class="rapport-title">📅 ÉVÉNEMENTS FOREX FACTORY</div>
+          <div class="rapport-date">Semaine du 2 juin 2026</div>
+        </div>
+        <div class="ff-grid">
+          <div class="ff-row"><span class="ff-time">08:30</span><span class="ff-currency" style="color:var(--red)">USD</span><span class="ff-name">Non-Farm Payrolls</span><span class="ff-impact impact-high">HIGH 🔴</span></div>
+          <div class="ff-row"><span class="ff-time">10:00</span><span class="ff-currency" style="color:var(--gold)">EUR</span><span class="ff-name">CPI Zone Euro (annuel)</span><span class="ff-impact impact-medium">MEDIUM 🟡</span></div>
+          <div class="ff-row"><span class="ff-time">14:00</span><span class="ff-currency" style="color:var(--red)">USD</span><span class="ff-name">Fed Interest Rate Decision</span><span class="ff-impact impact-high">HIGH 🔴</span></div>
+          <div class="ff-row"><span class="ff-time">15:30</span><span class="ff-currency" style="color:var(--gold)">GBP</span><span class="ff-name">UK GDP (mensuel)</span><span class="ff-impact impact-medium">MEDIUM 🟡</span></div>
+          <div class="ff-row"><span class="ff-time">Mer 09:00</span><span class="ff-currency" style="color:var(--red)">USD</span><span class="ff-name">ADP Employment Change</span><span class="ff-impact impact-high">HIGH 🔴</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ DÉCISIONS ═══ -->
+    <div class="tab-content" id="tab-decisions">
+      <div class="locked" id="decisions-locked" style="min-height:300px;">
+        <div style="min-height:300px;background:var(--bg2);border-radius:16px;border:1px solid var(--border);opacity:.2;padding:24px">
+          <div style="height:200px;background:var(--bg3);border-radius:8px"></div>
+        </div>
+        <div class="lock-overlay">
+          <div class="lock-icon">🎯</div>
+          <div class="lock-title">JOURNAL DES DÉCISIONS</div>
+          <div class="lock-sub">Voir pourquoi le bot achète et vend — disponible dès Pro</div>
+          <div class="lock-plans">
+            <span class="lock-plan-badge plan-pro">Pro — 49€/mois</span>
+            <span class="lock-plan-badge plan-elite">Elite — 99€/mois</span>
+          </div>
+          <a href="tarifs.html" class="lock-btn">Upgrader →</a>
+        </div>
+      </div>
+      <div id="decisions-content" style="display:none;">
+        <div class="rapport-card">
+          <div class="rapport-title" style="margin-bottom:16px">🎯 Dernières décisions du bot</div>
+          <div style="font-size:13px;color:var(--muted2);font-style:italic">Journal des décisions connecté au bot en direct...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══ PARAMÈTRES ═══ -->
+    <div class="tab-content" id="tab-settings">
+      <div class="rapport-card">
+        <div class="rapport-title" style="margin-bottom:24px">⚙️ PARAMÈTRES DU COMPTE</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <div style="font-size:12px;color:var(--muted2);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Email</div>
+            <input style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;" id="settings-email" value="">
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted2);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Webhook Discord</div>
+            <input style="width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:11px 14px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;" placeholder="https://discord.com/api/webhooks/...">
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <button style="background:var(--accent);color:#000;border:none;padding:11px 24px;border-radius:8px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Sauvegarder →</button>
+        </div>
+      </div>
+      <div class="rapport-card" style="margin-top:16px;">
+        <div class="rapport-title" style="margin-bottom:16px;">💎 Mon abonnement</div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <div style="font-size:16px;font-weight:600;" id="settings-plan-name">Plan Pro</div>
+            <div style="font-size:13px;color:var(--muted2);margin-top:4px;">Prochain renouvellement : 1er juillet 2026</div>
+          </div>
+          <a href="tarifs.html" style="background:transparent;color:var(--accent);border:1px solid rgba(0,255,136,.2);padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;">Changer de plan →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODAL UPGRADE -->
+<div class="modal-overlay" id="modal-upgrade">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>UPGRADER TON PLAN</h2>
+    <p>Débloque toutes les fonctionnalités d'AlphaBot en choisissant un plan supérieur.</p>
+    <div class="modal-plans">
+      <a href="tarifs.html?plan=basic" class="modal-plan">
+        <div><div style="font-weight:600">⚡ Basic</div><div style="font-size:12px;color:var(--muted2)">Bot actif + 2 actifs</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent)">24€/mois</div>
+      </a>
+      <a href="tarifs.html?plan=pro" class="modal-plan recommended">
+        <div><div style="font-weight:600">🚀 Pro <span style="background:rgba(0,255,136,.1);color:var(--accent);font-size:10px;padding:1px 6px;border-radius:4px;font-family:'DM Mono',monospace;">POPULAIRE</span></div><div style="font-size:12px;color:var(--muted2)">Dashboard + 5 actifs + Fibonacci</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent)">49€/mois</div>
+      </a>
+      <a href="tarifs.html?plan=elite" class="modal-plan">
+        <div><div style="font-weight:600">👑 Elite</div><div style="font-size:12px;color:var(--muted2)">20 actifs + tout inclus</div></div>
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--accent)">99€/mois</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+const PLANS = {
+  starter: { level: 0, name: 'Starter',  color: 'plan-starter', emoji: '📊' },
+  basic:   { level: 1, name: 'Basic',    color: 'plan-basic',   emoji: '⚡' },
+  pro:     { level: 2, name: 'Pro',      color: 'plan-pro',     emoji: '🚀' },
+  elite:   { level: 3, name: 'Elite',    color: 'plan-elite',   emoji: '👑' },
+};
+
+let user = null;
+let currentPlan = 'starter';
+
+function init() {
+  const stored = sessionStorage.getItem('alphabot_user');
+  if (!stored) { window.location.href = 'login.html'; return; }
+
+  user = JSON.parse(stored);
+  currentPlan = user.plan || 'starter';
+  const plan  = PLANS[currentPlan];
+
+  document.getElementById('user-name').textContent  = user.name || 'Utilisateur';
+  document.getElementById('user-email').textContent = user.email || '';
+  document.getElementById('user-avatar').textContent = (user.name || 'U')[0].toUpperCase();
+  document.getElementById('settings-email').value   = user.email || '';
+  document.getElementById('settings-plan-name').textContent = 'Plan ' + plan.name;
+
+  const pill = document.getElementById('plan-pill');
+  pill.textContent = plan.emoji + ' ' + plan.name;
+  pill.className = 'plan-pill ' + plan.color;
+
+  if (currentPlan !== 'elite') {
+    document.getElementById('upgrade-link').style.display = 'block';
+    document.getElementById('upgrade-topbar').style.display = 'block';
+  }
+
+  applyPlanRestrictions();
+}
+
+function applyPlanRestrictions() {
+  const level = PLANS[currentPlan].level;
+
+  // Bot en direct — Basic+
+  if (level >= 1) {
+    document.getElementById('bot-locked').querySelector('.lock-overlay').style.display = 'none';
+    document.getElementById('bot-content').style.display = 'block';
+    document.getElementById('lock-bot').textContent = '';
+  } else {
+    document.getElementById('lock-bot').textContent = '🔒';
+  }
+
+  // Mes actifs — Basic+
+  if (level >= 1) {
+    document.getElementById('actifs-locked').querySelector('.lock-overlay').style.display = 'none';
+    document.getElementById('actifs-content').style.display = 'block';
+    buildActifsTable();
+    document.getElementById('lock-actifs').textContent = '';
+  } else {
+    document.getElementById('lock-actifs').textContent = '🔒';
+  }
+
+  // Fibonacci — Pro+
+  if (level >= 2) {
+    document.getElementById('fibo-locked').querySelector('.lock-overlay').style.display = 'none';
+    document.getElementById('fibo-content').style.display = 'block';
+    buildFiboCards();
+    document.getElementById('lock-fibo').textContent = '';
+  } else {
+    document.getElementById('lock-fibo').textContent = '🔒';
+  }
+
+  // Décisions — Pro+
+  if (level >= 2) {
+    document.getElementById('decisions-locked').querySelector('.lock-overlay').style.display = 'none';
+    document.getElementById('decisions-content').style.display = 'block';
+    document.getElementById('lock-decisions').textContent = '';
+  } else {
+    document.getElementById('lock-decisions').textContent = '🔒';
+  }
+
+  // Top opportunités — Pro+ pour top 4&5
+  if (level >= 2) {
+    document.getElementById('opp-locked').style.display = 'none';
+  }
+
+  // Nb opps selon plan
+  const nbOpps = {starter:3, basic:3, pro:5, elite:10};
+  document.getElementById('nb-opps').textContent = nbOpps[currentPlan];
+}
+
+function buildActifsTable() {
+  const actifs = [
+    {sym:'AMZN', secteur:'Tech US', prix:'269.95€', var:'+2.1%', rsi:42, fibo:'61.8%', signal:'🟢 HAUSSIER'},
+    {sym:'JPM',  secteur:'Finance', prix:'201.20€', var:'+1.4%', rsi:38, fibo:'50%',   signal:'🟢 HAUSSIER'},
+    {sym:'OR.PA',secteur:'Luxe FR', prix:'412.00€', var:'+0.8%', rsi:45, fibo:'38.2%', signal:'✅ NEUTRE'},
+    {sym:'BTC',  secteur:'Crypto',  prix:'73 582€', var:'-1.2%', rsi:55, fibo:'23.6%', signal:'🔴 BAISSIER'},
+    {sym:'EURUSD',secteur:'Forex',  prix:'1.0821',  var:'+0.2%', rsi:48, fibo:'50%',   signal:'➡️ NEUTRE'},
+  ];
+  const level = PLANS[currentPlan].level;
+  const max   = level >= 3 ? 20 : level >= 2 ? 5 : 2;
+  const shown = actifs.slice(0, max);
+
+  document.getElementById('actifs-tbody').innerHTML = shown.map(a => `
+    <tr>
+      <td class="actif-sym">${a.sym}</td>
+      <td style="color:var(--muted2)">${a.secteur}</td>
+      <td>${a.prix}</td>
+      <td class="${a.var.startsWith('+') ? 'up' : 'down'}">${a.var}</td>
+      <td style="font-family:'DM Mono',monospace">${a.rsi}</td>
+      <td><div class="actif-fibo"><span class="fibo-pill" style="background:rgba(0,255,136,.1);color:var(--accent)">${a.fibo}</span></div></td>
+      <td>${a.signal}</td>
+    </tr>`).join('');
+}
+
+function buildFiboCards() {
+  const actifs = [
+    {sym:'AMZN', direction:'HAUSSIER', niveaux:[{pct:'23.6',prix:'260.10',color:'#0088ff'},{pct:'38.2',prix:'255.40',color:'#00ff88'},{pct:'50',prix:'251.80',color:'#ffcc00'},{pct:'61.8',prix:'248.20',color:'#00ff88'}]},
+    {sym:'JPM',  direction:'HAUSSIER', niveaux:[{pct:'38.2',prix:'195.30',color:'#00ff88'},{pct:'50',prix:'192.10',color:'#ffcc00'},{pct:'61.8',prix:'188.90',color:'#00ff88'}]},
+    {sym:'OR.PA',direction:'NEUTRE',   niveaux:[{pct:'23.6',prix:'408.50',color:'#0088ff'},{pct:'38.2',prix:'404.20',color:'#00ff88'},{pct:'50',prix:'401.00',color:'#ffcc00'}]},
+  ];
+  document.getElementById('fibo-cards').innerHTML = actifs.map(a => `
+    <div style="background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:16px">
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px">${a.sym}</div>
+      <div style="font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;margin-bottom:10px">${a.direction}</div>
+      ${a.niveaux.map(n => `
+        <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;font-family:'DM Mono',monospace">
+          <span style="color:${n.color}">Fibo ${n.pct}%</span>
+          <span style="color:var(--text)">${n.prix}€</span>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+
+  const titles = {
+    rapport:'RAPPORT WEEK-END', bot:'BOT EN DIRECT',
+    actifs:'MES ACTIFS', fibonacci:'FIBONACCI LIVE',
+    forex:'FOREX FACTORY', decisions:'JOURNAL DÉCISIONS', settings:'PARAMÈTRES'
+  };
+  document.getElementById('page-title').textContent = titles[name] || name.toUpperCase();
+}
+
+function openModal()  { document.getElementById('modal-upgrade').classList.add('show'); }
+function closeModal() { document.getElementById('modal-upgrade').classList.remove('show'); }
+
+function logout() {
+  sessionStorage.removeItem('alphabot_user');
+  window.location.href = 'login.html';
+}
+
+init();
+</script>
+</body>
+</html>

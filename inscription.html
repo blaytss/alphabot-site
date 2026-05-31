@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscription — AlphaBot</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080a0e;--bg2:#0d1117;--bg3:#131920;
+  --border:rgba(0,255,136,.12);--accent:#00ff88;--accent2:#00c96e;
+  --gold:#f5c542;--text:#e8edf2;--muted:#4a5568;--muted2:#718096;
+  --red:#ff3355;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;
+  min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(0,255,136,.03) 1px,transparent 1px),
+  linear-gradient(90deg,rgba(0,255,136,.03) 1px,transparent 1px);
+  background-size:60px 60px;pointer-events:none;z-index:0;}
+.glow{position:fixed;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,255,136,.05) 0%,transparent 70%);
+  top:-300px;right:-200px;pointer-events:none;z-index:0;}
+.wrapper{position:relative;z-index:1;min-height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;}
+
+/* LEFT PANEL */
+.left{background:var(--bg2);border-right:1px solid var(--border);
+  padding:48px;display:flex;flex-direction:column;justify-content:space-between;}
+.left-logo{display:flex;align-items:center;gap:10px;text-decoration:none;margin-bottom:48px;}
+.logo-icon{width:36px;height:36px;border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  display:flex;align-items:center;justify-content:center;font-size:18px;}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;
+  letter-spacing:2px;color:var(--accent);}
+.left-content{flex:1;display:flex;flex-direction:column;justify-content:center;}
+.left-tag{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--accent);margin-bottom:16px;}
+.left-title{font-family:'Bebas Neue',sans-serif;font-size:52px;
+  letter-spacing:2px;line-height:1;margin-bottom:20px;}
+.left-title .accent{color:var(--accent);}
+.left-sub{font-size:15px;color:var(--muted2);line-height:1.7;margin-bottom:40px;}
+
+/* PLAN SELECTOR */
+.plan-selector{display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.plan-option{background:var(--bg3);border:1px solid var(--border);
+  border-radius:12px;padding:14px 16px;cursor:pointer;transition:.2s;
+  display:flex;align-items:center;justify-content:space-between;}
+.plan-option:hover{border-color:rgba(0,255,136,.3);}
+.plan-option.selected{border-color:var(--accent);
+  background:rgba(0,255,136,.05);}
+.plan-option-left{display:flex;align-items:center;gap:12px;}
+.plan-radio{width:16px;height:16px;border-radius:50%;
+  border:2px solid var(--muted);transition:.2s;flex-shrink:0;}
+.plan-option.selected .plan-radio{border-color:var(--accent);
+  background:var(--accent);box-shadow:0 0 0 3px rgba(0,255,136,.15);}
+.plan-option-name{font-size:14px;font-weight:600;}
+.plan-option-desc{font-size:12px;color:var(--muted2);margin-top:2px;}
+.plan-option-price{font-family:'Bebas Neue',sans-serif;font-size:22px;
+  letter-spacing:1px;color:var(--accent);}
+.plan-popular{background:rgba(0,255,136,.1);color:var(--accent);
+  font-size:10px;padding:2px 8px;border-radius:4px;
+  font-family:'DM Mono',monospace;margin-left:8px;}
+
+/* FEATURES LIST */
+.features-list{display:flex;flex-direction:column;gap:10px;}
+.feat-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted2);}
+.feat-item::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;}
+
+.left-footer{font-size:12px;color:var(--muted);margin-top:40px;}
+.left-footer a{color:var(--muted2);text-decoration:none;}
+.left-footer a:hover{color:var(--accent);}
+
+/* RIGHT PANEL */
+.right{padding:48px;display:flex;flex-direction:column;justify-content:center;
+  max-width:520px;width:100%;margin:0 auto;}
+.right-header{margin-bottom:32px;}
+.right-header h2{font-family:'Bebas Neue',sans-serif;font-size:36px;
+  letter-spacing:2px;margin-bottom:8px;}
+.right-header p{font-size:14px;color:var(--muted2);}
+.right-header p a{color:var(--accent);text-decoration:none;}
+
+/* FORM */
+.form{display:flex;flex-direction:column;gap:20px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:12px;font-weight:600;color:var(--muted2);
+  text-transform:uppercase;letter-spacing:.5px;
+  font-family:'DM Mono',monospace;}
+.form-input{background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);padding:13px 16px;
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+  outline:none;transition:.2s;width:100%;}
+.form-input:focus{border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(0,255,136,.08);}
+.form-input::placeholder{color:var(--muted);}
+.form-input.error{border-color:var(--red);}
+
+/* PASSWORD STRENGTH */
+.pwd-strength{margin-top:6px;}
+.pwd-bars{display:flex;gap:4px;margin-bottom:4px;}
+.pwd-bar{height:3px;flex:1;border-radius:99px;background:var(--bg3);transition:.3s;}
+.pwd-bar.weak{background:#ff3355;}
+.pwd-bar.medium{background:var(--gold);}
+.pwd-bar.strong{background:var(--accent);}
+.pwd-label{font-size:11px;color:var(--muted2);font-family:'DM Mono',monospace;}
+
+/* TOGGLE PASSWORD */
+.input-wrap{position:relative;}
+.input-wrap .form-input{padding-right:44px;}
+.toggle-pwd{position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  cursor:pointer;color:var(--muted2);font-size:16px;background:none;border:none;}
+
+/* DISCORD */
+.discord-row{display:flex;align-items:center;gap:12px;
+  background:var(--bg3);border:1px solid var(--border);
+  border-radius:10px;padding:13px 16px;}
+.discord-icon{font-size:20px;}
+.discord-text{flex:1;}
+.discord-text p{font-size:13px;font-weight:500;}
+.discord-text span{font-size:11px;color:var(--muted2);}
+.discord-btn{background:rgba(88,101,242,.2);color:#7289da;
+  border:1px solid rgba(88,101,242,.3);border-radius:6px;
+  padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;
+  font-family:'DM Sans',sans-serif;white-space:nowrap;}
+.discord-btn:hover{background:rgba(88,101,242,.3);}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:12px;}
+.divider-line{flex:1;height:1px;background:var(--border);}
+.divider-text{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;}
+
+/* RECAP */
+.recap{background:rgba(0,255,136,.04);border:1px solid rgba(0,255,136,.15);
+  border-radius:12px;padding:16px 18px;}
+.recap-title{font-size:12px;color:var(--muted2);font-family:'DM Mono',monospace;
+  text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.recap-row{display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;margin-bottom:6px;}
+.recap-row:last-child{margin-bottom:0;padding-top:8px;
+  border-top:1px solid rgba(0,255,136,.1);}
+.recap-row .label{color:var(--muted2);}
+.recap-row .value{font-weight:600;color:var(--text);}
+.recap-row .total{font-family:'Bebas Neue',sans-serif;font-size:20px;
+  letter-spacing:1px;color:var(--accent);}
+
+/* SUBMIT */
+.submit-btn{background:var(--accent);color:#000;padding:15px;
+  border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;
+  border:none;transition:.2s;font-family:'DM Sans',sans-serif;
+  width:100%;letter-spacing:.3px;}
+.submit-btn:hover{background:var(--accent2);transform:translateY(-1px);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+
+/* CGU */
+.cgu-row{display:flex;align-items:flex-start;gap:10px;font-size:12px;color:var(--muted2);}
+.cgu-check{width:16px;height:16px;border-radius:4px;
+  border:1px solid var(--border);background:var(--bg3);
+  cursor:pointer;flex-shrink:0;display:flex;align-items:center;
+  justify-content:center;transition:.2s;margin-top:1px;}
+.cgu-check.checked{background:var(--accent);border-color:var(--accent);color:#000;}
+.cgu-row a{color:var(--accent);text-decoration:none;}
+
+/* ERROR MSG */
+.error-msg{font-size:12px;color:var(--red);font-family:'DM Mono',monospace;
+  display:none;margin-top:2px;}
+.error-msg.show{display:block;}
+
+/* SUCCESS */
+.success-screen{display:none;text-align:center;padding:40px 0;}
+.success-icon{font-size:64px;margin-bottom:24px;}
+.success-title{font-family:'Bebas Neue',sans-serif;font-size:40px;
+  letter-spacing:2px;color:var(--accent);margin-bottom:12px;}
+.success-sub{font-size:15px;color:var(--muted2);line-height:1.7;margin-bottom:32px;}
+.success-btn{background:var(--accent);color:#000;padding:14px 32px;
+  border-radius:10px;font-size:15px;font-weight:600;
+  text-decoration:none;display:inline-block;}
+
+@media(max-width:900px){
+  .wrapper{grid-template-columns:1fr;}
+  .left{display:none;}
+  .right{padding:32px 24px;max-width:100%;}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="wrapper">
+
+  <!-- LEFT -->
+  <div class="left">
+    <a href="index.html" class="left-logo">
+      <div class="logo-icon">📈</div>
+      <span class="logo-text">AlphaBot</span>
+    </a>
+
+    <div class="left-content">
+      <div class="left-tag">Inscription</div>
+      <div class="left-title">REJOINS<br><span class="accent">ALPHABOT</span></div>
+      <p class="left-sub">Choisis ton abonnement et accède à l'analyse algorithmique des marchés en temps réel.</p>
+
+      <!-- Plan selector -->
+      <div class="plan-selector" id="plan-selector">
+        <div class="plan-option" data-plan="starter" data-price="9" onclick="selectPlan(this)">
+          <div class="plan-option-left">
+            <div class="plan-radio"></div>
+            <div>
+              <div class="plan-option-name">📊 Starter</div>
+              <div class="plan-option-desc">Rapport week-end uniquement</div>
+            </div>
+          </div>
+          <div class="plan-option-price">9€/mois</div>
+        </div>
+        <div class="plan-option" data-plan="basic" data-price="24" onclick="selectPlan(this)">
+          <div class="plan-option-left">
+            <div class="plan-radio"></div>
+            <div>
+              <div class="plan-option-name">⚡ Basic</div>
+              <div class="plan-option-desc">Bot actif + 2 actifs</div>
+            </div>
+          </div>
+          <div class="plan-option-price">24€/mois</div>
+        </div>
+        <div class="plan-option selected" data-plan="pro" data-price="49" onclick="selectPlan(this)">
+          <div class="plan-option-left">
+            <div class="plan-radio"></div>
+            <div>
+              <div class="plan-option-name">🚀 Pro<span class="plan-popular">POPULAIRE</span></div>
+              <div class="plan-option-desc">Dashboard + 5 actifs + Fibonacci</div>
+            </div>
+          </div>
+          <div class="plan-option-price">49€/mois</div>
+        </div>
+        <div class="plan-option" data-plan="elite" data-price="99" onclick="selectPlan(this)">
+          <div class="plan-option-left">
+            <div class="plan-radio"></div>
+            <div>
+              <div class="plan-option-name">👑 Elite</div>
+              <div class="plan-option-desc">20 actifs + tout inclus</div>
+            </div>
+          </div>
+          <div class="plan-option-price">99€/mois</div>
+        </div>
+      </div>
+
+      <div class="features-list" id="plan-features">
+        <div class="feat-item">Dashboard temps réel</div>
+        <div class="feat-item">5 actifs surveillés au choix</div>
+        <div class="feat-item">Niveaux Fibonacci en direct</div>
+        <div class="feat-item">Rapport week-end complet</div>
+        <div class="feat-item">Trailing stop intelligent</div>
+      </div>
+    </div>
+
+    <div class="left-footer">
+      Déjà un compte ? <a href="login.html">Se connecter →</a><br><br>
+      <a href="index.html">← Retour à l'accueil</a>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <!-- FORM -->
+    <div id="form-screen">
+      <div class="right-header">
+        <h2>CRÉER UN COMPTE</h2>
+        <p>Déjà inscrit ? <a href="login.html">Se connecter →</a></p>
+      </div>
+
+      <div class="form" id="signup-form">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Prénom</label>
+            <input type="text" class="form-input" id="inp-prenom" placeholder="Sacha">
+            <span class="error-msg" id="err-prenom">Prénom requis</span>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-input" id="inp-nom" placeholder="Dupont">
+            <span class="error-msg" id="err-nom">Nom requis</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-input" id="inp-email" placeholder="sacha@exemple.com">
+          <span class="error-msg" id="err-email">Email invalide</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mot de passe</label>
+          <div class="input-wrap">
+            <input type="password" class="form-input" id="inp-pwd"
+              placeholder="Min. 8 caractères" oninput="checkPwd(this.value)">
+            <button class="toggle-pwd" type="button" onclick="togglePwd()" id="eye-btn">👁</button>
+          </div>
+          <div class="pwd-strength">
+            <div class="pwd-bars">
+              <div class="pwd-bar" id="bar1"></div>
+              <div class="pwd-bar" id="bar2"></div>
+              <div class="pwd-bar" id="bar3"></div>
+              <div class="pwd-bar" id="bar4"></div>
+            </div>
+            <div class="pwd-label" id="pwd-label">Entrez un mot de passe</div>
+          </div>
+          <span class="error-msg" id="err-pwd">Mot de passe trop court</span>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Confirmer le mot de passe</label>
+          <input type="password" class="form-input" id="inp-pwd2" placeholder="Répète ton mot de passe">
+          <span class="error-msg" id="err-pwd2">Les mots de passe ne correspondent pas</span>
+        </div>
+
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">DISCORD (optionnel)</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <div class="discord-row">
+          <div class="discord-icon">🎮</div>
+          <div class="discord-text">
+            <p>Connecte ton Discord</p>
+            <span>Reçois les alertes et rapports directement</span>
+          </div>
+          <button class="discord-btn" type="button">Connecter</button>
+        </div>
+
+        <!-- RECAP -->
+        <div class="recap">
+          <div class="recap-title">Récapitulatif</div>
+          <div class="recap-row">
+            <span class="label">Abonnement</span>
+            <span class="value" id="recap-plan">Pro</span>
+          </div>
+          <div class="recap-row">
+            <span class="label">Renouvellement</span>
+            <span class="value">Mensuel · Sans engagement</span>
+          </div>
+          <div class="recap-row">
+            <span class="label">Total aujourd'hui</span>
+            <span class="total" id="recap-price">49€</span>
+          </div>
+        </div>
+
+        <!-- CGU -->
+        <div class="cgu-row">
+          <div class="cgu-check" id="cgu-check" onclick="toggleCgu()"></div>
+          <span>J'accepte les <a href="#">conditions générales d'utilisation</a> et la <a href="#">politique de confidentialité</a>. Je comprends qu'AlphaBot est un outil de simulation (paper trading) et non un service d'investissement.</span>
+        </div>
+
+        <button class="submit-btn" id="submit-btn" onclick="submitForm()" disabled>
+          Créer mon compte →
+        </button>
+
+        <p style="text-align:center;font-size:12px;color:var(--muted2)">
+          🔒 Paiement sécurisé via Stripe · Annulation à tout moment
+        </p>
+
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">🎉</div>
+      <div class="success-title">BIENVENUE<br>SUR ALPHABOT !</div>
+      <p class="success-sub">Ton compte a été créé avec succès.<br>
+        Vérifie ton email pour activer ton compte et accéder à ton dashboard.</p>
+      <a href="dashboard-client.html" class="success-btn">Accéder à mon dashboard →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let selectedPlan = 'pro';
+let selectedPrice = 49;
+let cguAccepted = false;
+
+const planFeatures = {
+  starter: ['Rapport week-end complet','Top 3 opportunités semaine','Top 3 actions à éviter','Résumé Forex Factory','Envoi Discord / Email'],
+  basic:   ['Tout le plan Starter','Bot actif 24h/24 7j/7','2 actifs au choix','Alertes Discord temps réel','Trailing stop intelligent'],
+  pro:     ['Dashboard temps réel','5 actifs surveillés au choix','Niveaux Fibonacci en direct','Rapport week-end complet','Trailing stop avancé'],
+  elite:   ['Tout le plan Pro','20 actifs surveillés','Analyse marché complète','Support prioritaire','Configuration personnalisée']
+};
+
+function selectPlan(el) {
+  document.querySelectorAll('.plan-option').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedPlan  = el.dataset.plan;
+  selectedPrice = parseInt(el.dataset.price);
+
+  const names = {starter:'Starter',basic:'Basic',pro:'Pro',elite:'Elite'};
+  document.getElementById('recap-plan').textContent  = names[selectedPlan];
+  document.getElementById('recap-price').textContent = selectedPrice + '€';
+
+  const featEl = document.getElementById('plan-features');
+  featEl.innerHTML = planFeatures[selectedPlan].map(f =>
+    '<div class="feat-item">' + f + '</div>'
+  ).join('');
+}
+
+function checkPwd(val) {
+  const bars  = [document.getElementById('bar1'),document.getElementById('bar2'),
+                 document.getElementById('bar3'),document.getElementById('bar4')];
+  const label = document.getElementById('pwd-label');
+  bars.forEach(b => { b.className = 'pwd-bar'; });
+
+  let strength = 0;
+  if (val.length >= 8)  strength++;
+  if (val.match(/[A-Z]/)) strength++;
+  if (val.match(/[0-9]/)) strength++;
+  if (val.match(/[^A-Za-z0-9]/)) strength++;
+
+  const labels = ['','Faible','Moyen','Fort','Très fort'];
+  const classes = ['','weak','medium','strong','strong'];
+
+  for (let i = 0; i < strength; i++) bars[i].classList.add(classes[strength]);
+  label.textContent = val.length ? labels[strength] || 'Très fort' : 'Entrez un mot de passe';
+}
+
+function togglePwd() {
+  const inp = document.getElementById('inp-pwd');
+  const btn = document.getElementById('eye-btn');
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  btn.textContent = inp.type === 'password' ? '👁' : '🙈';
+}
+
+function toggleCgu() {
+  cguAccepted = !cguAccepted;
+  const el = document.getElementById('cgu-check');
+  el.classList.toggle('checked', cguAccepted);
+  el.textContent = cguAccepted ? '✓' : '';
+  updateSubmit();
+}
+
+function updateSubmit() {
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = !cguAccepted;
+}
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function submitForm() {
+  let valid = true;
+
+  const prenom = document.getElementById('inp-prenom').value.trim();
+  const nom    = document.getElementById('inp-nom').value.trim();
+  const email  = document.getElementById('inp-email').value.trim();
+  const pwd    = document.getElementById('inp-pwd').value;
+  const pwd2   = document.getElementById('inp-pwd2').value;
+
+  if (!prenom) { showError('prenom'); valid = false; } else hideError('prenom');
+  if (!nom)    { showError('nom');    valid = false; } else hideError('nom');
+  if (!validateEmail(email)) { showError('email'); valid = false; } else hideError('email');
+  if (pwd.length < 8) { showError('pwd'); valid = false; } else hideError('pwd');
+  if (pwd !== pwd2)   { showError('pwd2'); valid = false; } else hideError('pwd2');
+
+  if (!valid) return;
+
+  const btn = document.getElementById('submit-btn');
+  btn.textContent = '⏳ Création en cours...';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    document.getElementById('form-screen').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+  }, 1500);
+}
+
+function showError(field) {
+  document.getElementById('inp-' + field).classList.add('error');
+  document.getElementById('err-' + field).classList.add('show');
+}
+function hideError(field) {
+  document.getElementById('inp-' + field).classList.remove('error');
+  document.getElementById('err-' + field).classList.remove('show');
+}
+
+// Lit le plan depuis l'URL si venu de tarifs.html
+const params = new URLSearchParams(window.location.search);
+if (params.get('plan')) {
+  const el = document.querySelector('[data-plan="' + params.get('plan') + '"]');
+  if (el) selectPlan(el);
+}
+</script>
+</body>
+</html>
