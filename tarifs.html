@@ -28,8 +28,7 @@ nav{display:flex;align-items:center;justify-content:space-between;
 .nav-logo-icon{width:36px;height:36px;border-radius:8px;
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   display:flex;align-items:center;justify-content:center;font-size:18px;}
-.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;
-  letter-spacing:2px;color:var(--accent);}
+.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--accent);}
 .nav-links{display:flex;align-items:center;gap:32px;}
 .nav-links a{color:var(--muted2);text-decoration:none;font-size:14px;font-weight:500;transition:.2s;}
 .nav-links a:hover{color:var(--text);}
@@ -37,7 +36,6 @@ nav{display:flex;align-items:center;justify-content:space-between;
   font-size:14px;font-weight:600;text-decoration:none;transition:.2s;}
 .nav-cta:hover{background:var(--accent2);}
 
-/* HERO */
 .hero{padding:80px 60px 60px;text-align:center;}
 .section-tag{font-family:'DM Mono',monospace;font-size:11px;
   letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
@@ -46,7 +44,6 @@ h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,6vw,80px);
 h1 .accent{color:var(--accent);}
 .hero-sub{font-size:17px;color:var(--muted2);max-width:560px;margin:0 auto 40px;line-height:1.7;}
 
-/* TOGGLE MENSUEL/ANNUEL */
 .toggle-wrap{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:48px;}
 .toggle-label{font-size:14px;color:var(--muted2);}
 .toggle-label.active{color:var(--text);font-weight:600;}
@@ -60,12 +57,10 @@ h1 .accent{color:var(--accent);}
   font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;
   font-family:'DM Mono',monospace;border:1px solid rgba(245,197,66,.2);}
 
-/* PLANS */
 .plans{padding:0 60px 80px;}
 .plans-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
 .plan{background:var(--bg2);border:1px solid var(--border);
-  border-radius:20px;padding:32px;transition:.3s;position:relative;
-  display:flex;flex-direction:column;}
+  border-radius:20px;padding:32px;transition:.3s;position:relative;display:flex;flex-direction:column;}
 .plan:hover{transform:translateY(-6px);border-color:rgba(0,255,136,.25);}
 .plan.featured{border-color:var(--accent);
   background:linear-gradient(160deg,rgba(0,255,136,.07),var(--bg2) 60%);}
@@ -78,24 +73,19 @@ h1 .accent{color:var(--accent);}
 
 .plan-header{margin-bottom:24px;}
 .plan-icon{font-size:28px;margin-bottom:12px;}
-.plan-name{font-family:'Bebas Neue',sans-serif;font-size:28px;
-  letter-spacing:2px;color:var(--text);}
+.plan-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;color:var(--text);}
 .plan-tagline{font-size:13px;color:var(--muted2);margin-top:4px;line-height:1.5;}
 
-.plan-price{margin-bottom:28px;padding-bottom:28px;
-  border-bottom:1px solid var(--border);}
+.plan-price{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border);}
 .price-monthly{display:flex;align-items:baseline;gap:4px;}
 .price-amount{font-family:'Bebas Neue',sans-serif;font-size:52px;
   letter-spacing:1px;color:var(--accent);line-height:1;}
 .price-period{font-size:15px;color:var(--muted2);}
-.price-annual{font-size:12px;color:var(--muted2);margin-top:6px;
-  font-family:'DM Mono',monospace;}
+.price-annual{font-size:12px;color:var(--muted2);margin-top:6px;font-family:'DM Mono',monospace;}
 .price-annual span{color:var(--gold);}
 
-.plan-features{flex:1;list-style:none;display:flex;flex-direction:column;
-  gap:12px;margin-bottom:28px;}
-.plan-features li{display:flex;align-items:flex-start;gap:10px;
-  font-size:13px;line-height:1.5;}
+.plan-features{flex:1;list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px;}
+.plan-features li{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;}
 .feat-check{color:var(--accent);font-size:14px;flex-shrink:0;margin-top:1px;}
 .feat-x{color:var(--muted);font-size:14px;flex-shrink:0;margin-top:1px;}
 .feat-text{color:var(--muted2);}
@@ -104,24 +94,22 @@ h1 .accent{color:var(--accent);}
   font-size:10px;padding:1px 6px;border-radius:4px;
   font-family:'DM Mono',monospace;margin-left:6px;}
 
-.plan-cta{width:100%;padding:14px;border-radius:10px;font-size:14px;
-  font-weight:600;cursor:pointer;border:none;transition:.2s;
-  font-family:'DM Sans',sans-serif;letter-spacing:.3px;}
-.cta-outline{background:transparent;color:var(--text);
-  border:1px solid rgba(255,255,255,.15);}
-.cta-outline:hover{border-color:var(--accent);color:var(--accent);}
-.cta-solid{background:var(--accent);color:#000;}
-.cta-solid:hover{background:var(--accent2);transform:translateY(-1px);}
+/* BOUTONS PLANS — <a> qui ressemblent à des boutons */
+a.plan-cta{display:block;width:100%;padding:14px;border-radius:10px;font-size:14px;
+  font-weight:600;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;
+  text-align:center;text-decoration:none;letter-spacing:.3px;}
+a.cta-outline{background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.15);}
+a.cta-outline:hover{border-color:var(--accent);color:var(--accent);}
+a.cta-solid{background:var(--accent);color:#000;}
+a.cta-solid:hover{background:var(--accent2);transform:translateY(-1px);}
 
-/* COMPARATIF */
 .compare{padding:0 60px 80px;}
 .compare-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,48px);
   letter-spacing:2px;text-align:center;margin-bottom:8px;}
 .compare-sub{text-align:center;color:var(--muted2);font-size:15px;margin-bottom:40px;}
 
 .compare-table{width:100%;border-collapse:collapse;
-  background:var(--bg2);border-radius:16px;overflow:hidden;
-  border:1px solid var(--border);}
+  background:var(--bg2);border-radius:16px;overflow:hidden;border:1px solid var(--border);}
 .compare-table th{padding:16px 20px;text-align:center;
   font-family:'DM Mono',monospace;font-size:12px;font-weight:500;
   letter-spacing:1px;color:var(--muted2);border-bottom:1px solid var(--border);}
@@ -140,16 +128,13 @@ h1 .accent{color:var(--accent);}
   font-size:11px;font-family:'DM Mono',monospace;
   letter-spacing:1px;text-transform:uppercase;padding:10px 20px;}
 
-/* GARANTIE */
 .garantie{margin:0 60px 80px;background:var(--bg2);border:1px solid var(--border);
   border-radius:20px;padding:48px;display:grid;
   grid-template-columns:auto 1fr;gap:32px;align-items:center;}
 .garantie-icon{font-size:56px;}
-.garantie h3{font-family:'Bebas Neue',sans-serif;font-size:32px;
-  letter-spacing:2px;margin-bottom:8px;}
+.garantie h3{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:2px;margin-bottom:8px;}
 .garantie p{color:var(--muted2);font-size:15px;line-height:1.7;}
 
-/* FAQ */
 .faq-section{padding:0 60px 80px;max-width:760px;margin:0 auto;}
 .faq-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,4vw,48px);
   letter-spacing:2px;text-align:center;margin-bottom:8px;}
@@ -157,17 +142,14 @@ h1 .accent{color:var(--accent);}
 .faq-item{border-bottom:1px solid var(--border);padding:20px 0;}
 .faq-q{font-size:15px;font-weight:500;cursor:pointer;
   display:flex;justify-content:space-between;align-items:center;gap:16px;}
-.faq-q::after{content:'+';font-size:20px;color:var(--accent);
-  font-weight:300;flex-shrink:0;}
+.faq-q::after{content:'+';font-size:20px;color:var(--accent);font-weight:300;flex-shrink:0;}
 .faq-item.open .faq-q::after{content:'−';}
-.faq-a{font-size:14px;color:var(--muted2);line-height:1.7;
-  margin-top:12px;display:none;}
+.faq-a{font-size:14px;color:var(--muted2);line-height:1.7;margin-top:12px;display:none;}
 .faq-item.open .faq-a{display:block;}
 
 footer{padding:40px 60px;border-top:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;
-  letter-spacing:2px;color:var(--accent);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--accent);}
 .footer-text{font-size:13px;color:var(--muted);}
 .footer-links{display:flex;gap:24px;}
 .footer-links a{font-size:13px;color:var(--muted2);text-decoration:none;}
@@ -184,9 +166,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   footer{flex-direction:column;gap:16px;padding:32px 24px;text-align:center;}
   .nav-links{display:none;}
 }
-@media(max-width:600px){
-  .plans-grid{grid-template-columns:1fr;}
-}
+@media(max-width:600px){.plans-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -203,15 +183,13 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
     <a href="index.html#how">Comment ça marche</a>
     <a href="tarifs.html" style="color:var(--accent)">Tarifs</a>
   </div>
-  <a href="#plans" class="nav-cta">Commencer →</a>
+  <a href="inscription.html" class="nav-cta">Commencer →</a>
 </nav>
 
-<!-- HERO -->
 <div class="hero">
   <div class="section-tag">Tarifs</div>
   <h1>SIMPLE ET<br><span class="accent">TRANSPARENT</span></h1>
   <p class="hero-sub">Commence gratuitement avec le rapport week-end, évolue selon tes besoins. Sans engagement, sans surprise.</p>
-
   <div class="toggle-wrap">
     <span class="toggle-label active" id="label-monthly">Mensuel</span>
     <div class="toggle-btn" id="toggle-billing" onclick="toggleBilling()"></div>
@@ -220,7 +198,6 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </div>
 </div>
 
-<!-- PLANS -->
 <div class="plans" id="plans">
   <div class="plans-grid">
 
@@ -235,9 +212,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
           <span class="price-amount" data-monthly="9" data-annual="7">9€</span>
           <span class="price-period">/mois</span>
         </div>
-        <div class="price-annual" id="annual-starter" style="display:none">
-          Soit <span>84€/an</span> au lieu de 108€
-        </div>
+        <div class="price-annual" id="annual-starter" style="display:none">Soit <span>84€/an</span> au lieu de 108€</div>
       </div>
       <ul class="plan-features">
         <li><span class="feat-check">✓</span><span class="feat-text active">Rapport week-end complet</span></li>
@@ -248,7 +223,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li><span class="feat-x">✗</span><span class="feat-text">Bot actif en semaine</span></li>
         <li><span class="feat-x">✗</span><span class="feat-text">Dashboard temps réel</span></li>
       </ul>
-      <button class="plan-cta cta-outline">Commencer avec Starter →</button>
+      <a href="inscription.html?plan=starter" class="plan-cta cta-outline">Commencer avec Starter →</a>
     </div>
 
     <div class="plan">
@@ -262,9 +237,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
           <span class="price-amount" data-monthly="24" data-annual="19">24€</span>
           <span class="price-period">/mois</span>
         </div>
-        <div class="price-annual" id="annual-basic" style="display:none">
-          Soit <span>228€/an</span> au lieu de 288€
-        </div>
+        <div class="price-annual" id="annual-basic" style="display:none">Soit <span>228€/an</span> au lieu de 288€</div>
       </div>
       <ul class="plan-features">
         <li><span class="feat-check">✓</span><span class="feat-text active">Tout le plan Starter</span></li>
@@ -275,7 +248,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li><span class="feat-x">✗</span><span class="feat-text">Dashboard complet</span></li>
         <li><span class="feat-x">✗</span><span class="feat-text">Niveaux Fibonacci</span></li>
       </ul>
-      <button class="plan-cta cta-outline">Commencer avec Basic →</button>
+      <a href="inscription.html?plan=basic" class="plan-cta cta-outline">Commencer avec Basic →</a>
     </div>
 
     <div class="plan featured">
@@ -290,9 +263,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
           <span class="price-amount" data-monthly="49" data-annual="39">49€</span>
           <span class="price-period">/mois</span>
         </div>
-        <div class="price-annual" id="annual-pro" style="display:none">
-          Soit <span>468€/an</span> au lieu de 588€
-        </div>
+        <div class="price-annual" id="annual-pro" style="display:none">Soit <span>468€/an</span> au lieu de 588€</div>
       </div>
       <ul class="plan-features">
         <li><span class="feat-check">✓</span><span class="feat-text active">Tout le plan Basic</span></li>
@@ -303,7 +274,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li><span class="feat-check">✓</span><span class="feat-text active">Trailing stop avancé</span></li>
         <li><span class="feat-check">✓</span><span class="feat-text active">Analyse week-end détaillée</span></li>
       </ul>
-      <button class="plan-cta cta-solid">Commencer avec Pro →</button>
+      <a href="inscription.html?plan=pro" class="plan-cta cta-solid">Commencer avec Pro →</a>
     </div>
 
     <div class="plan">
@@ -317,9 +288,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
           <span class="price-amount" data-monthly="99" data-annual="79">99€</span>
           <span class="price-period">/mois</span>
         </div>
-        <div class="price-annual" id="annual-elite" style="display:none">
-          Soit <span>948€/an</span> au lieu de 1188€
-        </div>
+        <div class="price-annual" id="annual-elite" style="display:none">Soit <span>948€/an</span> au lieu de 1188€</div>
       </div>
       <ul class="plan-features">
         <li><span class="feat-check">✓</span><span class="feat-text active">Tout le plan Pro</span></li>
@@ -330,13 +299,12 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li><span class="feat-check">✓</span><span class="feat-text active">Accès API<span class="feat-new">BIENTÔT</span></span></li>
         <li><span class="feat-check">✓</span><span class="feat-text active">Config personnalisée</span></li>
       </ul>
-      <button class="plan-cta cta-outline">Commencer avec Elite →</button>
+      <a href="inscription.html?plan=elite" class="plan-cta cta-outline">Commencer avec Elite →</a>
     </div>
 
   </div>
 </div>
 
-<!-- COMPARATIF -->
 <div class="compare">
   <div class="compare-title">COMPARATIF DÉTAILLÉ</div>
   <div class="compare-sub">Toutes les fonctionnalités en un coup d'œil</div>
@@ -357,19 +325,16 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
       <tr><td>Actions à éviter</td><td><span class="partial">Pire 3</span></td><td><span class="partial">Pire 3</span></td><td class="featured-col"><span class="partial">Pire 5</span></td><td><span class="partial">Pire 10</span></td></tr>
       <tr><td>Niveaux Fibonacci week-end</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Résumé Forex Factory</td><td><span class="check">✓</span></td><td><span class="check">✓</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
-
       <tr><td colspan="5" class="cat-row">🤖 Bot actif</td></tr>
       <tr><td>Bot actif en semaine</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Nombre d'actifs suivis</td><td><span class="cross">✗</span></td><td><span class="partial">2 actifs</span></td><td class="featured-col"><span class="partial">5 actifs</span></td><td><span class="partial">20 actifs</span></td></tr>
       <tr><td>Alertes Discord temps réel</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Trailing stop intelligent</td><td><span class="cross">✗</span></td><td><span class="check">✓</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
-
       <tr><td colspan="5" class="cat-row">📉 Dashboard</td></tr>
       <tr><td>Dashboard temps réel</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Niveaux Fibonacci en direct</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Graphiques TradingView</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Journal des décisions</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="check">✓</span></td><td><span class="check">✓</span></td></tr>
-
       <tr><td colspan="5" class="cat-row">👑 Elite</td></tr>
       <tr><td>Support prioritaire</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
       <tr><td>Config personnalisée</td><td><span class="cross">✗</span></td><td><span class="cross">✗</span></td><td class="featured-col"><span class="cross">✗</span></td><td><span class="check">✓</span></td></tr>
@@ -378,7 +343,6 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </table>
 </div>
 
-<!-- GARANTIE -->
 <div class="garantie">
   <div class="garantie-icon">🛡️</div>
   <div>
@@ -387,39 +351,27 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </div>
 </div>
 
-<!-- FAQ -->
 <div class="faq-section">
   <div class="faq-title">QUESTIONS<br>FRÉQUENTES</div>
   <div class="faq-sub">Tout ce que tu veux savoir sur les abonnements</div>
-
   <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-      Comment choisir mon abonnement ?
-    </div>
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Comment choisir mon abonnement ?</div>
     <div class="faq-a">Si tu veux juste des conseils sans trader toi-même, commence par Starter. Si tu veux que le bot surveille des actifs spécifiques, prends Basic ou Pro. Si tu veux la puissance maximale, Elite est fait pour toi.</div>
   </div>
   <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-      Est-ce que je peux changer d'abonnement ?
-    </div>
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Est-ce que je peux changer d'abonnement ?</div>
     <div class="faq-a">Oui, tu peux upgrader ou downgrader à tout moment depuis ton espace client. Le changement prend effet immédiatement avec un ajustement au prorata.</div>
   </div>
   <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-      Comment sont livrés les rapports week-end ?
-    </div>
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Comment sont livrés les rapports week-end ?</div>
     <div class="faq-a">Les rapports sont envoyés automatiquement sur ton serveur Discord et par email chaque samedi matin. Le bot analyse toute la nuit du vendredi pour avoir les meilleures données.</div>
   </div>
   <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-      Le bot prend-il des décisions à ma place ?
-    </div>
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Le bot prend-il des décisions à ma place ?</div>
     <div class="faq-a">Non — AlphaBot est un outil d'analyse et de simulation (paper trading). Il ne trade pas avec ton argent réel. Les résultats affichés sont des simulations basées sur des stratégies algorithmiques.</div>
   </div>
   <div class="faq-item">
-    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-      Quels actifs puis-je choisir avec Basic et Pro ?
-    </div>
+    <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Quels actifs puis-je choisir avec Basic et Pro ?</div>
     <div class="faq-a">Tu peux choisir parmi les 28 actifs surveillés : 10 actions françaises (CAC40), 10 actions américaines, 4 paires forex et 4 cryptomonnaies. Tu modifies ta sélection à tout moment.</div>
   </div>
 </div>
@@ -438,23 +390,17 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
 
 <script>
 let isAnnual = false;
-
 function toggleBilling() {
   isAnnual = !isAnnual;
   const btn = document.getElementById('toggle-billing');
   const lm = document.getElementById('label-monthly');
   const la = document.getElementById('label-annual');
-
   btn.classList.toggle('on', isAnnual);
   lm.classList.toggle('active', !isAnnual);
   la.classList.toggle('active', isAnnual);
-
   document.querySelectorAll('.price-amount').forEach(el => {
-    const monthly = parseInt(el.dataset.monthly);
-    const annual  = parseInt(el.dataset.annual);
-    el.textContent = (isAnnual ? annual : monthly) + '€';
+    el.textContent = (isAnnual ? el.dataset.annual : el.dataset.monthly) + '€';
   });
-
   ['starter','basic','pro','elite'].forEach(plan => {
     const el = document.getElementById('annual-' + plan);
     if (el) el.style.display = isAnnual ? 'block' : 'none';

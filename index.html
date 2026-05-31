@@ -22,20 +22,17 @@
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
 
-/* GRID NOISE */
 body::before{content:'';position:fixed;inset:0;
   background-image:linear-gradient(rgba(0,255,136,.03) 1px,transparent 1px),
   linear-gradient(90deg,rgba(0,255,136,.03) 1px,transparent 1px);
   background-size:60px 60px;pointer-events:none;z-index:0;}
 
-/* GLOW */
 .glow{position:fixed;width:600px;height:600px;border-radius:50%;
   background:radial-gradient(circle,rgba(0,255,136,.06) 0%,transparent 70%);
   top:-200px;left:50%;transform:translateX(-50%);pointer-events:none;z-index:0;}
 
 .wrapper{position:relative;z-index:1;}
 
-/* NAV */
 nav{display:flex;align-items:center;justify-content:space-between;
   padding:20px 60px;border-bottom:1px solid var(--border);
   background:rgba(8,10,14,.8);backdrop-filter:blur(20px);
@@ -47,14 +44,12 @@ nav{display:flex;align-items:center;justify-content:space-between;
 .nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;
   letter-spacing:2px;color:var(--accent);}
 .nav-links{display:flex;align-items:center;gap:32px;}
-.nav-links a{color:var(--muted2);text-decoration:none;font-size:14px;font-weight:500;
-  transition:.2s;}
+.nav-links a{color:var(--muted2);text-decoration:none;font-size:14px;font-weight:500;transition:.2s;}
 .nav-links a:hover{color:var(--text);}
 .nav-cta{background:var(--accent);color:#000;padding:10px 24px;border-radius:8px;
   font-size:14px;font-weight:600;text-decoration:none;transition:.2s;}
 .nav-cta:hover{background:var(--accent2);transform:translateY(-1px);}
 
-/* HERO */
 .hero{padding:120px 60px 80px;text-align:center;max-width:900px;margin:0 auto;}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;
   background:rgba(0,255,136,.08);border:1px solid rgba(0,255,136,.2);
@@ -70,9 +65,7 @@ nav{display:flex;align-items:center;justify-content:space-between;
   line-height:.95;letter-spacing:3px;margin-bottom:24px;}
 .hero h1 .accent{color:var(--accent);}
 .hero h1 .gold{color:var(--gold);}
-
-.hero p{font-size:18px;color:var(--muted2);line-height:1.7;
-  max-width:600px;margin:0 auto 40px;}
+.hero p{font-size:18px;color:var(--muted2);line-height:1.7;max-width:600px;margin:0 auto 40px;}
 
 .hero-ctas{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
 .btn-primary{background:var(--accent);color:#000;padding:14px 32px;
@@ -84,7 +77,6 @@ nav{display:flex;align-items:center;justify-content:space-between;
   border:1px solid var(--border);transition:.2s;display:inline-block;}
 .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
 
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
   background:var(--border);border:1px solid var(--border);
   border-radius:16px;overflow:hidden;margin:80px 60px;}
@@ -94,17 +86,13 @@ nav{display:flex;align-items:center;justify-content:space-between;
 .stat-label{font-size:13px;color:var(--muted2);margin-top:8px;
   font-family:'DM Mono',monospace;letter-spacing:.5px;}
 
-/* SECTION TITLES */
 .section{padding:80px 60px;}
 .section-tag{font-family:'DM Mono',monospace;font-size:11px;
-  letter-spacing:2px;text-transform:uppercase;color:var(--accent);
-  margin-bottom:12px;}
+  letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
 .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,56px);
   letter-spacing:2px;margin-bottom:16px;line-height:1.1;}
-.section-sub{font-size:16px;color:var(--muted2);line-height:1.7;
-  max-width:560px;}
+.section-sub{font-size:16px;color:var(--muted2);line-height:1.7;max-width:560px;}
 
-/* FEATURES */
 .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px;}
 .feature-card{background:var(--bg2);border:1px solid var(--border);
   border-radius:16px;padding:28px;transition:.3s;position:relative;overflow:hidden;}
@@ -117,28 +105,21 @@ nav{display:flex;align-items:center;justify-content:space-between;
 .feature-title{font-size:16px;font-weight:600;margin-bottom:8px;}
 .feature-desc{font-size:14px;color:var(--muted2);line-height:1.6;}
 
-/* HOW IT WORKS */
-.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;
-  align-items:center;margin-top:48px;}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
 .steps{display:flex;flex-direction:column;gap:24px;}
 .step{display:flex;gap:20px;align-items:flex-start;}
 .step-num{width:36px;height:36px;border-radius:50%;
   background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);
   display:flex;align-items:center;justify-content:center;
-  font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);
-  flex-shrink:0;}
+  font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);flex-shrink:0;}
 .step-content h4{font-size:15px;font-weight:600;margin-bottom:6px;}
 .step-content p{font-size:13px;color:var(--muted2);line-height:1.6;}
 
-/* MOCK DASHBOARD */
-.mock{background:var(--bg3);border:1px solid var(--border);
-  border-radius:16px;padding:20px;font-family:'DM Mono',monospace;}
-.mock-header{display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:16px;}
+.mock{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:20px;font-family:'DM Mono',monospace;}
+.mock-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
 .mock-title{font-size:12px;color:var(--muted2);}
 .mock-live{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--accent);}
-.mock-live::before{content:'';width:6px;height:6px;border-radius:50%;
-  background:var(--accent);animation:pulse 2s infinite;}
+.mock-live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite;}
 .mock-kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px;}
 .mock-kpi{background:var(--bg2);border-radius:8px;padding:12px;}
 .mock-kpi-label{font-size:10px;color:var(--muted2);margin-bottom:4px;}
@@ -162,28 +143,26 @@ nav{display:flex;align-items:center;justify-content:space-between;
   background:var(--accent);color:#000;font-size:11px;font-weight:700;
   padding:4px 14px;border-radius:99px;font-family:'DM Mono',monospace;
   letter-spacing:1px;white-space:nowrap;}
-.plan-name{font-family:'Bebas Neue',sans-serif;font-size:24px;
-  letter-spacing:2px;margin-bottom:8px;}
+.plan-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:8px;}
 .plan-price{margin-bottom:20px;}
 .plan-price .amount{font-family:'Bebas Neue',sans-serif;font-size:48px;
   letter-spacing:1px;color:var(--accent);}
 .plan-price .period{font-size:14px;color:var(--muted2);}
-.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;
-  margin-bottom:28px;}
+.plan-features{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
 .plan-features li{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted2);}
 .plan-features li::before{content:'✓';color:var(--accent);font-weight:700;flex-shrink:0;}
-.plan-cta{width:100%;padding:12px;border-radius:8px;font-size:14px;font-weight:600;
-  cursor:pointer;border:none;transition:.2s;font-family:'DM Sans',sans-serif;}
-.plan-cta-outline{background:transparent;color:var(--text);
-  border:1px solid var(--border);}
-.plan-cta-outline:hover{border-color:var(--accent);color:var(--accent);}
-.plan-cta-solid{background:var(--accent);color:#000;}
-.plan-cta-solid:hover{background:var(--accent2);}
 
-/* TICKER */
+/* BOUTONS PLANS — <a> qui ressemblent à des boutons */
+a.plan-cta{display:block;width:100%;padding:12px;border-radius:8px;font-size:14px;
+  font-weight:600;cursor:pointer;transition:.2s;font-family:'DM Sans',sans-serif;
+  text-align:center;text-decoration:none;}
+a.plan-cta-outline{background:transparent;color:var(--text);border:1px solid var(--border);}
+a.plan-cta-outline:hover{border-color:var(--accent);color:var(--accent);}
+a.plan-cta-solid{background:var(--accent);color:#000;}
+a.plan-cta-solid:hover{background:var(--accent2);}
+
 .ticker-wrap{overflow:hidden;border-top:1px solid var(--border);
-  border-bottom:1px solid var(--border);
-  background:var(--bg2);padding:14px 0;margin:0;}
+  border-bottom:1px solid var(--border);background:var(--bg2);padding:14px 0;margin:0;}
 .ticker{display:flex;gap:48px;animation:ticker 20s linear infinite;width:max-content;}
 @keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .ticker-item{display:flex;align-items:center;gap:8px;
@@ -194,18 +173,15 @@ nav{display:flex;align-items:center;justify-content:space-between;
 .up{color:var(--accent);}
 .down{color:#ff3355;}
 
-/* FAQ */
 .faq{max-width:700px;margin:48px auto 0;}
 .faq-item{border-bottom:1px solid var(--border);padding:20px 0;}
 .faq-q{font-size:15px;font-weight:500;cursor:pointer;
   display:flex;justify-content:space-between;align-items:center;}
 .faq-q::after{content:'+';font-size:20px;color:var(--accent);font-weight:300;}
-.faq-a{font-size:14px;color:var(--muted2);line-height:1.7;
-  margin-top:12px;display:none;}
+.faq-a{font-size:14px;color:var(--muted2);line-height:1.7;margin-top:12px;display:none;}
 .faq-item.open .faq-q::after{content:'−';}
 .faq-item.open .faq-a{display:block;}
 
-/* CTA FINAL */
 .cta-section{padding:80px 60px;text-align:center;}
 .cta-box{background:linear-gradient(135deg,rgba(0,255,136,.08),rgba(0,201,110,.04));
   border:1px solid rgba(0,255,136,.2);border-radius:24px;padding:64px;
@@ -214,11 +190,9 @@ nav{display:flex;align-items:center;justify-content:space-between;
   letter-spacing:2px;margin-bottom:16px;}
 .cta-box p{font-size:16px;color:var(--muted2);margin-bottom:32px;}
 
-/* FOOTER */
 footer{padding:40px 60px;border-top:1px solid var(--border);
   display:flex;align-items:center;justify-content:space-between;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;
-  letter-spacing:2px;color:var(--accent);}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--accent);}
 .footer-text{font-size:13px;color:var(--muted);}
 .footer-links{display:flex;gap:24px;}
 .footer-links a{font-size:13px;color:var(--muted2);text-decoration:none;}
@@ -243,7 +217,6 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
 <div class="glow"></div>
 <div class="wrapper">
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">
     <div class="nav-logo-icon">📈</div>
@@ -255,10 +228,9 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
     <a href="#plans">Tarifs</a>
     <a href="#faq">FAQ</a>
   </div>
-  <a href="#plans" class="nav-cta">Commencer →</a>
+  <a href="inscription.html" class="nav-cta">Commencer →</a>
 </nav>
 
-<!-- TICKER -->
 <div class="ticker-wrap">
   <div class="ticker">
     <div class="ticker-item"><span class="ticker-sym">BTC/USD</span><span class="ticker-val">73 582€</span><span class="ticker-chg up">+2.3%</span></div>
@@ -280,41 +252,23 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </div>
 </div>
 
-<!-- HERO -->
 <div class="hero">
   <div class="hero-badge">🤖 Trading algorithmique · Alimenté par IA</div>
-  <h1>
-    TRADE <span class="accent">PLUS VITE</span><br>
-    QUE LE <span class="gold">MARCHÉ</span>
-  </h1>
+  <h1>TRADE <span class="accent">PLUS VITE</span><br>QUE LE <span class="gold">MARCHÉ</span></h1>
   <p>AlphaBot analyse 28 actifs en temps réel — actions françaises, américaines, crypto et forex — grâce à Fibonacci, EMA200 et l'intelligence artificielle.</p>
   <div class="hero-ctas">
-    <a href="#plans" class="btn-primary">Voir les abonnements →</a>
+    <a href="inscription.html" class="btn-primary">Voir les abonnements →</a>
     <a href="#how" class="btn-secondary">Comment ça marche</a>
   </div>
 </div>
 
-<!-- STATS -->
 <div class="stats">
-  <div class="stat">
-    <div class="stat-val">28</div>
-    <div class="stat-label">Actifs surveillés</div>
-  </div>
-  <div class="stat">
-    <div class="stat-val">24/7</div>
-    <div class="stat-label">Analyse continue</div>
-  </div>
-  <div class="stat">
-    <div class="stat-val">6</div>
-    <div class="stat-label">Indicateurs combinés</div>
-  </div>
-  <div class="stat">
-    <div class="stat-val">10s</div>
-    <div class="stat-label">Cycle d'analyse</div>
-  </div>
+  <div class="stat"><div class="stat-val">28</div><div class="stat-label">Actifs surveillés</div></div>
+  <div class="stat"><div class="stat-val">24/7</div><div class="stat-label">Analyse continue</div></div>
+  <div class="stat"><div class="stat-val">6</div><div class="stat-label">Indicateurs combinés</div></div>
+  <div class="stat"><div class="stat-val">10s</div><div class="stat-label">Cycle d'analyse</div></div>
 </div>
 
-<!-- FEATURES -->
 <div class="section" id="features">
   <div class="section-tag">Fonctionnalités</div>
   <div class="section-title">UN BOT QUI PENSE<br>POUR TOI</div>
@@ -353,7 +307,6 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
 <div class="section" id="how" style="background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
   <div class="section-tag">Méthode</div>
   <div class="section-title">COMMENT<br>ÇA MARCHE</div>
@@ -394,22 +347,10 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <span class="mock-live">En direct</span>
       </div>
       <div class="mock-kpis">
-        <div class="mock-kpi">
-          <div class="mock-kpi-label">Capital total</div>
-          <div class="mock-kpi-val" style="color:var(--accent)">1 043.20€</div>
-        </div>
-        <div class="mock-kpi">
-          <div class="mock-kpi-label">Gain / Perte</div>
-          <div class="mock-kpi-val" style="color:var(--accent)">+43.20€</div>
-        </div>
-        <div class="mock-kpi">
-          <div class="mock-kpi-label">Win Rate</div>
-          <div class="mock-kpi-val">62.5%</div>
-        </div>
-        <div class="mock-kpi">
-          <div class="mock-kpi-label">Positions</div>
-          <div class="mock-kpi-val">3</div>
-        </div>
+        <div class="mock-kpi"><div class="mock-kpi-label">Capital total</div><div class="mock-kpi-val" style="color:var(--accent)">1 043.20€</div></div>
+        <div class="mock-kpi"><div class="mock-kpi-label">Gain / Perte</div><div class="mock-kpi-val" style="color:var(--accent)">+43.20€</div></div>
+        <div class="mock-kpi"><div class="mock-kpi-label">Win Rate</div><div class="mock-kpi-val">62.5%</div></div>
+        <div class="mock-kpi"><div class="mock-kpi-label">Positions</div><div class="mock-kpi-val">3</div></div>
       </div>
       <div class="mock-pos">
         <div class="mock-row">
@@ -431,8 +372,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
           <span class="mock-gain" style="color:#ff3355">-0.18€</span>
         </div>
         <div style="margin-top:8px;padding:10px 12px;background:rgba(0,255,136,.05);
-          border:1px solid rgba(0,255,136,.15);border-radius:8px;font-size:11px;
-          color:var(--accent)">
+          border:1px solid rgba(0,255,136,.15);border-radius:8px;font-size:11px;color:var(--accent)">
           🛡️ Trailing stop actif — Gain min sécurisé: +0.3%
         </div>
       </div>
@@ -440,7 +380,6 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </div>
 </div>
 
-<!-- PLANS -->
 <div class="section" id="plans">
   <div class="section-tag">Tarifs</div>
   <div class="section-title">CHOISIS TON<br>ABONNEMENT</div>
@@ -449,10 +388,7 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
 
     <div class="plan">
       <div class="plan-name">Starter</div>
-      <div class="plan-price">
-        <span class="amount">9€</span>
-        <span class="period">/mois</span>
-      </div>
+      <div class="plan-price"><span class="amount">9€</span><span class="period">/mois</span></div>
       <ul class="plan-features">
         <li>Rapport week-end complet</li>
         <li>Top 3 opportunités</li>
@@ -460,15 +396,12 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li>Résumé Forex Factory</li>
         <li>Envoi Discord / Email</li>
       </ul>
-      <button class="plan-cta plan-cta-outline">Commencer →</button>
+      <a href="inscription.html?plan=starter" class="plan-cta plan-cta-outline">Commencer →</a>
     </div>
 
     <div class="plan">
       <div class="plan-name">Basic</div>
-      <div class="plan-price">
-        <span class="amount">24€</span>
-        <span class="period">/mois</span>
-      </div>
+      <div class="plan-price"><span class="amount">24€</span><span class="period">/mois</span></div>
       <ul class="plan-features">
         <li>Tout l'abonnement Starter</li>
         <li>Bot actif 24h/24</li>
@@ -476,16 +409,13 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li>Top 3 + Pire 3 hebdo</li>
         <li>Alertes Discord temps réel</li>
       </ul>
-      <button class="plan-cta plan-cta-outline">Commencer →</button>
+      <a href="inscription.html?plan=basic" class="plan-cta plan-cta-outline">Commencer →</a>
     </div>
 
     <div class="plan featured">
       <div class="plan-badge">⭐ POPULAIRE</div>
       <div class="plan-name">Pro</div>
-      <div class="plan-price">
-        <span class="amount">49€</span>
-        <span class="period">/mois</span>
-      </div>
+      <div class="plan-price"><span class="amount">49€</span><span class="period">/mois</span></div>
       <ul class="plan-features">
         <li>Tout l'abonnement Basic</li>
         <li>5 actifs surveillés au choix</li>
@@ -494,15 +424,12 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li>Niveaux Fibonacci en direct</li>
         <li>Trailing stop avancé</li>
       </ul>
-      <button class="plan-cta plan-cta-solid">Commencer →</button>
+      <a href="inscription.html?plan=pro" class="plan-cta plan-cta-solid">Commencer →</a>
     </div>
 
     <div class="plan">
       <div class="plan-name">Elite</div>
-      <div class="plan-price">
-        <span class="amount">99€</span>
-        <span class="period">/mois</span>
-      </div>
+      <div class="plan-price"><span class="amount">99€</span><span class="period">/mois</span></div>
       <ul class="plan-features">
         <li>Tout l'abonnement Pro</li>
         <li>20 actifs surveillés</li>
@@ -511,13 +438,12 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
         <li>Support prioritaire</li>
         <li>Accès API</li>
       </ul>
-      <button class="plan-cta plan-cta-outline">Commencer →</button>
+      <a href="inscription.html?plan=elite" class="plan-cta plan-cta-outline">Commencer →</a>
     </div>
 
   </div>
 </div>
 
-<!-- FAQ -->
 <div class="section" id="faq" style="background:var(--bg2);border-top:1px solid var(--border);">
   <div style="text-align:center">
     <div class="section-tag">FAQ</div>
@@ -525,50 +451,36 @@ footer{padding:40px 60px;border-top:1px solid var(--border);
   </div>
   <div class="faq">
     <div class="faq-item">
-      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-        Le bot trade avec mon argent réel ?
-      </div>
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Le bot trade avec mon argent réel ?</div>
       <div class="faq-a">Non — AlphaBot fonctionne en paper trading (simulation). Il analyse les marchés et génère des signaux mais ne touche pas à ton argent réel. Tu resteras toujours maître de tes décisions.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-        Quels marchés sont couverts ?
-      </div>
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Quels marchés sont couverts ?</div>
       <div class="faq-a">AlphaBot surveille 10 actions françaises (CAC40), 10 actions américaines (S&P500), 4 paires forex (EUR/USD, GBP/USD, USD/JPY, Or) et 4 cryptos (BTC, ETH, SOL, XRP) — soit 28 actifs en continu.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-        Comment fonctionne le rapport week-end ?
-      </div>
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Comment fonctionne le rapport week-end ?</div>
       <div class="faq-a">Chaque samedi et dimanche, le bot effectue une analyse approfondie de tous les marchés avec Fibonacci, RSI, EMA200 et consulte le calendrier Forex Factory pour identifier les opportunités et risques de la semaine à venir.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-        Quelle est la stratégie principale utilisée ?
-      </div>
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Quelle est la stratégie principale utilisée ?</div>
       <div class="faq-a">AlphaBot utilise les niveaux de Fibonacci comme signal principal, confirmé par le volume, l'EMA200 et les chandeliers japonais. Un minimum de 6 indicateurs sur 10 doivent être positifs pour déclencher un trade.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-        Je peux annuler à tout moment ?
-      </div>
+      <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Je peux annuler à tout moment ?</div>
       <div class="faq-a">Oui — tous les abonnements sont sans engagement. Tu peux annuler à tout moment depuis ton espace client. Aucun frais de résiliation.</div>
     </div>
   </div>
 </div>
 
-<!-- CTA FINAL -->
 <div class="cta-section">
   <div class="cta-box">
     <h2>PRÊT À TRADER<br><span style="color:var(--accent)">INTELLIGEMMENT ?</span></h2>
     <p>Rejoins AlphaBot et laisse l'IA analyser les marchés à ta place.</p>
-    <a href="#plans" class="btn-primary" style="font-size:16px;padding:16px 40px;">
-      Voir les abonnements →
-    </a>
+    <a href="inscription.html" class="btn-primary" style="font-size:16px;padding:16px 40px;">Voir les abonnements →</a>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">AlphaBot</div>
   <div class="footer-text">© 2026 AlphaBot — Trading algorithmique</div>
