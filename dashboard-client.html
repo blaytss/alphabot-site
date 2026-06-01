@@ -339,63 +339,42 @@ async function chargerDonnees() {
   }
 }
 
-function afficherDonnees() {
-  const d = botData;
-  document.getElementById('bot-loading').style.display = 'none';
-  document.getElementById('bot-error').style.display = 'none';
-  document.getElementById('bot-content').style.display = 'block';
-  document.getElementById('last-update').textContent = 'Mis à jour : ' + d.derniere_maj;
+const stats = d.stats || {};
+const crypto = stats.crypto || {};
+const actions = stats.actions || {};
 
-  const gainColor = d.gain_global >= 0 ? 'var(--accent)' : 'var(--red)';
-  const gainSign  = d.gain_global >= 0 ? '+' : '';
+document.getElementById('kpi-winrate').textContent = (stats.winrate || 0) + '%';
+document.getElementById('kpi-winrate-sub').textContent = (stats.nb_trades || 0) + ' trades fermés';
 
-  // Ligne 1
-  document.getElementById('kpi-capital').textContent = d.valeur_totale.toFixed(2) + '€';
-  document.getElementById('kpi-capital').style.color = gainColor;
-  document.getElementById('kpi-capital-sub').textContent = gainSign + d.gain_global.toFixed(2) + '€ total';
-  document.getElementById('kpi-dispo').textContent = d.capital_dispo.toFixed(2) + '€';
-  document.getElementById('kpi-dispo-sub').textContent = 'Capital départ : ' + d.capital_depart + '€';
-  document.getElementById('kpi-positions').textContent = d.nb_positions;
+document.getElementById('kpi-winrate-actions').textContent = (actions.winrate || 0) + '%';
+document.getElementById('kpi-winrate-actions-sub').textContent = (actions.nb || 0) + ' trades · ' + (actions.gagnants||0) + 'W/' + (actions.perdants||0) + 'L';
 
-  const stats   = d.stats   || {};
-  const crypto  = stats.crypto  || {};
-  const actions = stats.actions || {};
+document.getElementById('kpi-winrate-crypto').textContent = (crypto.winrate || 0) + '%';
+document.getElementById('kpi-winrate-crypto-sub').textContent = (crypto.nb || 0) + ' trades · ' + (crypto.gagnants||0) + 'W/' + (crypto.perdants||0) + 'L';
 
-  document.getElementById('kpi-winrate').textContent = (stats.winrate || 0) + '%';
-  document.getElementById('kpi-winrate-sub').textContent = (stats.nb_trades || 0) + ' trades fermés';
+document.getElementById('kpi-gain').textContent = gainSign + d.gain_global.toFixed(2) + '€';
+document.getElementById('kpi-gain').style.color = gainColor;
+document.getElementById('kpi-gain-pct').textContent = gainSign + gainPct + '% depuis le début';
 
-  // Ligne 2
-  document.getElementById('kpi-winrate-actions').textContent = (actions.winrate || 0) + '%';
-  document.getElementById('kpi-winrate-actions-sub').textContent = (actions.nb || 0) + ' trades · ' + (actions.gagnants||0) + 'W/' + ((actions.nb||0)-(actions.gagnants||0)) + 'L';
-  document.getElementById('kpi-winrate-crypto').textContent = (crypto.winrate || 0) + '%';
-  document.getElementById('kpi-winrate-crypto-sub').textContent = (crypto.nb || 0) + ' trades · ' + (crypto.gagnants||0) + 'W/' + ((crypto.nb||0)-(crypto.gagnants||0)) + 'L';
-  document.getElementById('kpi-gain').textContent = gainSign + d.gain_global.toFixed(2) + '€';
-  document.getElementById('kpi-gain').style.color = gainColor;
-  document.getElementById('kpi-gain-pct').textContent = gainSign + (d.gain_pct || 0) + '% depuis le début';
-  const mart = d.perte_a_recuperer || 0;
-  document.getElementById('kpi-martingale').textContent = mart > 0 ? mart.toFixed(2) + '€' : '0€';
-  document.getElementById('kpi-martingale').style.color = mart > 0 ? 'var(--gold)' : 'var(--muted2)';
+document.getElementById('kpi-trades').textContent = stats.nb_trades || 0;
+document.getElementById('kpi-trades-sub').textContent = (stats.nb_gagnants||0) + 'W / ' + (stats.nb_perdants||0) + 'L';
 
-  // Ligne 3
-  document.getElementById('kpi-trades').textContent = stats.nb_trades || 0;
-  document.getElementById('kpi-trades-sub').textContent = (stats.nb_gagnants||0) + 'W / ' + (stats.nb_perdants||0) + 'L';
-  const pnlActions = actions.gains || 0;
-  const pnlCrypto  = crypto.gains  || 0;
-  const pnlTotal   = stats.gains_total || 0;
-  document.getElementById('kpi-pnl-actions').textContent = (pnlActions >= 0 ? '+' : '') + pnlActions.toFixed(2) + '€';
-  document.getElementById('kpi-pnl-actions').style.color = pnlActions >= 0 ? 'var(--accent)' : 'var(--red)';
-  document.getElementById('kpi-pnl-actions-sub').textContent = (actions.nb||0) + ' trades actions';
-  document.getElementById('kpi-pnl-crypto').textContent = (pnlCrypto >= 0 ? '+' : '') + pnlCrypto.toFixed(2) + '€';
-  document.getElementById('kpi-pnl-crypto').style.color = pnlCrypto >= 0 ? 'var(--accent)' : 'var(--red)';
-  document.getElementById('kpi-pnl-crypto-sub').textContent = (crypto.nb||0) + ' trades crypto';
-  document.getElementById('kpi-pnl').textContent = (pnlTotal >= 0 ? '+' : '') + pnlTotal.toFixed(2) + '€';
-  document.getElementById('kpi-pnl').style.color = pnlTotal >= 0 ? 'var(--accent)' : 'var(--red)';
+const pnl = stats.gains_total || 0;
+const pnlActions = actions.gains || 0;
+const pnlCrypto = crypto.gains || 0;
 
-  afficherPositions(d.positions || []);
-  afficherHistorique(d.historique || []);
-  afficherFibo(d.positions || []);
-  afficherConfig(d.config || {});
-}
+document.getElementById('kpi-pnl').textContent = (pnl >= 0 ? '+' : '') + pnl.toFixed(2) + '€';
+document.getElementById('kpi-pnl').style.color = pnl >= 0 ? 'var(--accent)' : 'var(--red)';
+
+document.getElementById('kpi-pnl-actions').textContent = (pnlActions >= 0 ? '+' : '') + pnlActions.toFixed(2) + '€';
+document.getElementById('kpi-pnl-actions').style.color = pnlActions >= 0 ? 'var(--accent)' : 'var(--red)';
+
+document.getElementById('kpi-pnl-crypto').textContent = (pnlCrypto >= 0 ? '+' : '') + pnlCrypto.toFixed(2) + '€';
+document.getElementById('kpi-pnl-crypto').style.color = pnlCrypto >= 0 ? 'var(--accent)' : 'var(--red)';
+
+const mart = d.perte_a_recuperer || 0;
+document.getElementById('kpi-martingale').textContent = mart > 0 ? mart.toFixed(2) + '€' : '0€';
+document.getElementById('kpi-martingale').style.color = mart > 0 ? 'var(--gold)' : 'var(--muted2)';
 
 function afficherPositions(positions) {
   const el = document.getElementById('positions-content');
