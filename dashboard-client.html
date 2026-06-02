@@ -328,9 +328,29 @@ function afficherDonnees() {
   document.getElementById('kpi-dispo-sub').textContent = 'Capital départ : ' + d.capital_depart + '€';
   document.getElementById('kpi-positions').textContent = d.nb_positions;
 
-  const stats   = d.stats   || {};
-  const crypto  = stats.crypto  || {};
-  const actions = stats.actions || {};
+  const stats = d.stats || {};
+
+  // Calcul crypto/actions depuis l'historique si pas dispo dans le JSON
+  const CRYPTO = ['BTC-USD','ETH-USD','SOL-USD','XRP-USD'];
+  const historique = d.historique || [];
+  const fermes = historique.filter(t => ['TAKE_PROFIT','STOP_LOSS','VENTE'].includes(t.type_event));
+  const fermesCrypto  = fermes.filter(t => CRYPTO.includes(t.symbole));
+  const fermesActions = fermes.filter(t => !CRYPTO.includes(t.symbole));
+  const gCrypto  = fermesCrypto.filter(t => (t.gain_perte||0) > 0).length;
+  const gActions = fermesActions.filter(t => (t.gain_perte||0) > 0).length;
+
+  const crypto = stats.crypto || {
+    nb: fermesCrypto.length,
+    winrate: fermesCrypto.length ? Math.round(gCrypto/fermesCrypto.length*100*10)/10 : 0,
+    gains: Math.round(fermesCrypto.reduce((s,t)=>s+(t.gain_perte||0),0)*100)/100,
+    gagnants: gCrypto
+  };
+  const actions = stats.actions || {
+    nb: fermesActions.length,
+    winrate: fermesActions.length ? Math.round(gActions/fermesActions.length*100*10)/10 : 0,
+    gains: Math.round(fermesActions.reduce((s,t)=>s+(t.gain_perte||0),0)*100)/100,
+    gagnants: gActions
+  };
 
   document.getElementById('kpi-winrate').textContent = (stats.winrate || 0) + '%';
   document.getElementById('kpi-winrate-sub').textContent = (stats.nb_trades || 0) + ' trades fermés';
